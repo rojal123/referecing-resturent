@@ -1,0 +1,211 @@
+.hero {
+  position: relative;
+  min-height: 92vh;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 0 90px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 15% 30%, rgba(0, 0, 0, 0.55), transparent 55%),
+    radial-gradient(circle at 88% 75%, rgba(200, 161, 90, 0.16), transparent 50%),
+    radial-gradient(circle at 10% 90%, rgba(110, 20, 35, 0.45), transparent 55%),
+    linear-gradient(155deg, #2a1e17 0%, #1a1411 60%, #150f0c 100%);
+  z-index: 0;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  width: 100%;
+}
+
+
+
+.hero-huge {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: clamp(2.8rem, 7vw, 5.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  margin: 0 0 26px 0;
+  color: var(--color-cream);
+}
+
+.hero-subtitle {
+  max-width: 480px;
+  font-size: 1.05rem;
+  margin-bottom: 34px;
+}
+
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 16px 34px;
+  border-radius: 999px;
+  background: var(--color-cream);
+  color: #1a1411;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
+.btn-pill:hover {
+  background: var(--color-gold);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 640px) {
+  .hero {
+    min-height: 78vh;
+    padding-bottom: 60px;
+  }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-fade-1 { animation: fadeUp 0.7s ease 0.05s both; }
+.hero-fade-2 { animation: fadeUp 0.8s ease 0.15s both; }
+.hero-fade-3 { animation: fadeUp 0.8s ease 0.3s both; }
+.hero-fade-4 { animation: fadeUp 0.8s ease 0.45s both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-fade-1, .hero-fade-2, .hero-fade-3, .hero-fade-4 {
+    animation: none;
+  }
+}
+
+/* Marquee ticker */
+.marquee {
+  overflow: hidden;
+  border-bottom: 1px solid var(--color-line);
+  background: var(--color-wine);
+  padding: 16px 0;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: scroll-left 28s linear infinite;
+}
+
+@keyframes scroll-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.marquee-item {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-cream);
+  padding: 0 20px;
+  white-space: nowrap;
+}
+
+.marquee-item .dot {
+  color: var(--color-gold);
+  margin-left: 20px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+}
+
+/* Ingredients / kitchen split */
+.kitchen-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.kitchen-photo-inner {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: 6px;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(200, 161, 90, 0.18), transparent 50%),
+    linear-gradient(155deg, var(--color-wine) 0%, var(--color-panel) 65%, var(--color-bg-alt) 100%);
+  border: 1px solid var(--color-line);
+}
+
+/* The Process grid */
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.how-card {
+  background: var(--color-panel);
+  border: 1px solid var(--color-line);
+  border-radius: 6px;
+  padding: 30px;
+  text-align: center;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+.how-card:hover {
+  border-color: var(--color-gold);
+  transform: translateY(-4px);
+}
+
+.how-index {
+  font-family: var(--font-mono);
+  color: var(--color-gold);
+  font-size: 0.85rem;
+}
+
+.how-link {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--color-gold);
+  display: inline-block;
+  margin-top: 10px;
+}
+
+/* CTA with watermark */
+.cta-section {
+  position: relative;
+  border-bottom: none;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.cta-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 16vw, 11rem);
+  font-weight: 700;
+  color: var(--color-cream);
+  opacity: 0.04;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@media (max-width: 860px) {
+  .kitchen-grid {
+    grid-template-columns: 1fr;
+  }
+  .how-grid {
+    grid-template-columns: 1fr;
+  }
+}
