@@ -1,4 +1,4 @@
-import api from '../../api.js';
+import api from '../../../api.js';
 import { formatDate } from '../helpers.js';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';

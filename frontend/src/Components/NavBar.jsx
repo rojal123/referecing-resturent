@@ -1,6 +1,7 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { Home, ShoppingBag, CalendarCheck, Star, Info, Mail } from 'lucide-react';
 import { useAuth } from '../Context/AuthContext.jsx';
+import logo from '../assets/2.png';
 import './navbar.css';
 
 const links = [
@@ -28,6 +29,7 @@ export default function Navbar() {
     <header className="nav">
       <div className="nav-inner">
         <Link to="/" className="nav-brand">
+          <img src={logo} alt="Tavola" className="nav-logo" />
           Tavola
         </Link>
 

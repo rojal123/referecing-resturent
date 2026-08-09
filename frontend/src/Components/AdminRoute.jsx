@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext.jsx';
+import { useAuth } from '../Context/AuthContext.jsx';
 
 // Wrap the admin route with this. Sends non-logged-in visitors to /login,
 // and logged-in-but-not-admin visitors back to the homepage.

@@ -1,6 +1,6 @@
 import api from '../../api.js';
 import { useEffect, useState } from 'react';
-import { useAuth } from '../../context/AuthContext.jsx';
+import { useAuth } from '../../Context/AuthContext.jsx';
 
 function Stars({ value }) {
   return (
@@ -23,10 +23,16 @@ export default function Reviews() {
     loadReviews();
   }, []);
 
-  function loadReviews() {
+function loadReviews() {
     setLoading(true);
     api.get('/reviews')
-      .then((res) => setReviews(res.data))
+      .then((res) => {
+        console.log('GET /reviews response:', res.data); // TEMP: check console, remove later
+        const data = Array.isArray(res.data)
+          ? res.data
+          : (res.data?.items || res.data?.data || []);
+        setReviews(data);
+      })
       .catch(() => setStatus({ type: 'error', text: 'Could not load reviews right now.' }))
       .finally(() => setLoading(false));
   }

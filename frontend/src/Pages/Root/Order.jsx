@@ -1,6 +1,6 @@
 import api from '../../api.js';
 import { useEffect, useState } from 'react';
-import { useAuth } from '../../context/AuthContext.jsx';
+import { useAuth } from '../../Context/AuthContext.jsx';
 
 export default function Order() {
   const { user } = useAuth();
@@ -18,9 +18,15 @@ export default function Order() {
     pickupTime: ''
   });
 
-  useEffect(() => {
+useEffect(() => {
     api.get('/menu')
-      .then((res) => setMenu(res.data))
+      .then((res) => {
+        console.log('GET /menu response:', res.data); // TEMP: check console, remove later
+        const data = Array.isArray(res.data)
+          ? res.data
+          : (res.data?.items || res.data?.data || []);
+        setMenu(data);
+      })
       .catch(() => setStatus({ type: 'error', text: 'Could not load the menu. Is the backend running?' }))
       .finally(() => setLoadingMenu(false));
   }, []);

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import api from "../../api.js";
+import api from '../../../api.js';
 import { useAdminList } from '../helpers.js';
 
 export default function AdminMenu() {

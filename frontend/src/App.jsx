@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import PublicLayout from './components/PublicLayout.jsx';
+import PublicLayout from './Components/PublicLayout.jsx';
 
 import Menu from './Pages/Root/Menu.jsx';
 import Home from './Pages/Root/Home.jsx';
@@ -16,18 +16,18 @@ import Signup from './Pages/Auth/Signup.jsx';
 import ResetPassword from './Pages/Auth/ResetPassword.jsx';
 import ForgotPassword from './Pages/Auth/Forgetpassword.jsx';
 
-import AdminRoute from './components/AdminRoute.jsx';
-import AdminLayout from './components/AdminLayout.jsx';
+import AdminRoute from './Components/AdminRoute.jsx';
+import AdminLayout from './Components/AdminLayout.jsx';
 
-import Orders from './Pages/Admin/orders/Orders.jsx';
-import Report from './Pages/Admin/Report/Report.jsx';
-import AdminMenu from './Pages/Admin/Menu/Menu.jsx';
-import Bookings from './Pages/Admin/Booking/Bookings.jsx';
-import Dashboard from './Pages/Admin/DashBoard/Dashboard.jsx';
-import Customers from './Pages/Admin/Customer/Customers.jsx';
-import AdminReviews from './Pages/Admin/Reviews/Reviews.jsx';
-import AddEditDish from './Pages/Admin/Booking/AddEditDish.jsx';
-import Notifications from './Pages/Admin/Notification/Notifications.jsx';
+import Orders from './Pages/admin/Orders/Orders.jsx';
+import Report from './Pages/admin/Report/Report.jsx';
+import AdminMenu from './Pages/admin/Menu/Menu.jsx';
+import Bookings from './Pages/admin/Booking/Bookings.jsx';
+import Dashboard from './Pages/admin/DashBoard/Dashboard.jsx';
+import Customers from './Pages/admin/Customer/Customers.jsx';
+import AdminReviews from './Pages/admin/Reviews/Reviews.jsx';
+import AddEditDish from './Pages/admin/Booking/AddEditDish.jsx';
+import Notifications from './Pages/admin/Notification/Notifications.jsx';
 
 export default function App() {
   return (

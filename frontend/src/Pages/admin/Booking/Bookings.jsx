@@ -1,4 +1,4 @@
-import api from '../../api.js';
+import api from '../../../api.js';
 import { useAdminList, formatDate } from '../helpers.js';
 
 export default function Bookings() {

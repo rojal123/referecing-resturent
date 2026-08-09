@@ -1,5 +1,5 @@
-import './admin.css';
-import { useAuth } from '../../context/AuthContext.jsx';
+import './adminLayout.css';
+import { useAuth } from '../Context/AuthContext.jsx';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 
 const NAV_ITEMS = [

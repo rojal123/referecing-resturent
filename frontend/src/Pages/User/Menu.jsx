@@ -1,4 +1,4 @@
-import api from '../api.js';
+import api from '../../api.js';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
@@ -11,7 +11,6 @@ export default function Menu() {
 
   useEffect(() => {
     fetchItems();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function fetchItems(query = '') {

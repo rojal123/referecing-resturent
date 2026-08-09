@@ -1,38 +1,39 @@
+import { useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import api from "../../api.js";
-import { useState } from 'react';
-import { useAuth } from '../../context/AuthContext.jsx';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useAuth } from "../../Context/AuthContext.jsx";
+import heroKitchen from "../../assets/hero-kitchen.png";
+import "./Login.css";
 
 export default function Login() {
-  const [form, setForm] = useState({ email: '', password: '' });
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [remember, setRemember] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const location = useLocation();
   const [status, setStatus] = useState(() =>
     location.state?.signupMessage
-      ? { type: 'success', text: location.state.signupMessage }
-      : { type: '', text: '' }
+      ? { type: "success", text: location.state.signupMessage }
+      : { type: "", text: "" }
   );
-  const [loading, setLoading] = useState(false);
 
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  function handleChange(e) {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  }
-
   async function handleSubmit(e) {
     e.preventDefault();
-    setStatus({ type: '', text: '' });
+    setStatus({ type: "", text: "" });
     setLoading(true);
     try {
-      const res = await api.post('/auth/login', form);
-      login(res.data.user);
-      setStatus({ type: 'success', text: res.data.message });
-      navigate(res.data.user.isAdmin ? '/admin' : '/');
+      const res = await api.post("/auth/login", { email, password });
+      login(res.data.user, res.data.token);
+      setStatus({ type: "success", text: res.data.message });
+      navigate(res.data.user.isAdmin ? "/admin" : "/");
     } catch (err) {
       setStatus({
-        type: 'error',
-        text: err.response?.data?.message || 'Something went wrong. Please try again.'
+        type: "error",
+        text: err.response?.data?.message || "Something went wrong. Please try again."
       });
     } finally {
       setLoading(false);
@@ -40,33 +41,71 @@ export default function Login() {
   }
 
   return (
-    <section className="section" style={{ borderBottom: 'none', minHeight: '70vh', display: 'flex', alignItems: 'center' }}>
-      <div className="wrap" style={{ display: 'flex', justifyContent: 'center' }}>
-        <div className="form-card">
-          <span className="eyebrow">Welcome Back</span>
-          <h2>Log In</h2>
+    <div className="tavola-page">
+      <img src={heroKitchen} alt="" className="tavola-bg-image" />
 
-          {status.text && <div className={`form-msg ${status.type}`}>{status.text}</div>}
+      <div className="tavola-card">
+        <h1 className="tavola-title">Tavola</h1>
+        <p className="tavola-subtitle">Welcome back. Please sign in.</p>
 
-          <form onSubmit={handleSubmit}>
-            <div className="field">
-              <label htmlFor="email">Email</label>
-              <input id="email" name="email" type="email" required value={form.email} onChange={handleChange} />
+        {status.text && (
+          <p className={`tavola-msg ${status.type}`}>{status.text}</p>
+        )}
+
+        <form onSubmit={handleSubmit}>
+          <div className="tavola-field">
+            <div className="tavola-label-row">
+              <label className="tavola-label" htmlFor="email">Email address</label>
             </div>
-            <div className="field">
-              <label htmlFor="password">Password</label>
-              <input id="password" name="password" type="password" required value={form.password} onChange={handleChange} />
-            </div>
-            <button className="btn btn-primary" type="submit" disabled={loading} style={{ width: '100%', justifyContent: 'center' }}>
-              {loading ? 'Logging In...' : 'Log In'}
-            </button>
-          </form>
+            <input
+              id="email"
+              type="email"
+              className="tavola-input"
+              placeholder="Enter your email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
 
-          <p style={{ marginTop: 20, fontSize: '0.9rem' }}>
-            Don't have an account? <Link to="/signup" style={{ color: 'var(--color-gold)' }}>Sign up</Link>
-          </p>
-        </div>
+          <div className="tavola-field">
+            <div className="tavola-label-row">
+              <label className="tavola-label" htmlFor="password">Password</label>
+              <Link to="/forgot-password" className="tavola-forgot">Forgot?</Link>
+            </div>
+            <input
+              id="password"
+              type="password"
+              className="tavola-input"
+              placeholder="Enter your password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+
+          <label className="tavola-remember">
+            <input
+              type="checkbox"
+              className="tavola-checkbox"
+              checked={remember}
+              onChange={(e) => setRemember(e.target.checked)}
+            />
+            <span className="tavola-remember-label">Remember me on this device</span>
+          </label>
+
+          <button type="submit" className="tavola-btn tavola-btn-primary" disabled={loading}>
+            {loading ? "Signing In..." : "Sign in"}
+          </button>
+          <Link to="/signup" className="tavola-btn tavola-btn-secondary" style={{ display: "block", textAlign: "center" }}>
+            Create an account
+          </Link>
+        </form>
+
+        <p className="tavola-footer">
+          By signing in, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+        </p>
       </div>
-    </section>
+    </div>
   );
 }

@@ -21,6 +21,9 @@
 }
 
 .nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-family: var(--font-display);
   font-size: 35px;
   font-weight: 700;
@@ -29,6 +32,14 @@
   white-space: nowrap;
   flex-shrink: 0;
   margin-left: 20px;
+}
+
+.nav-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
 .nav-links {
