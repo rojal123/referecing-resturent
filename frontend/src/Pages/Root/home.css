@@ -1,22 +1,102 @@
 .hero {
   position: relative;
-  min-height: 92vh;
-  display: flex;
-  align-items: flex-end;
-  padding: 0 0 90px;
   overflow: hidden;
-  border-bottom: 1px solid var(--color-line);
+  min-height: 95vh;
+  display: flex;
+  align-items: center;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
 }
 
 .hero-scrim {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(ellipse at 15% 30%, rgba(0, 0, 0, 0.55), transparent 55%),
-    radial-gradient(circle at 88% 75%, rgba(200, 161, 90, 0.16), transparent 50%),
-    radial-gradient(circle at 10% 90%, rgba(110, 20, 35, 0.45), transparent 55%),
-    linear-gradient(155deg, #2a1e17 0%, #1a1411 60%, #150f0c 100%);
-  z-index: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.35) 40%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.hero-huge {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 24px;
+}
+
+.hero-subtitle {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(1.05rem, 1.4vw, 1.35rem);
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+  max-width: 620px;
+  margin: 0 auto 36px;
+}
+
+/* Buttons */
+.hero-btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-pill {
+  display: inline-block;
+  padding: 14px 32px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.btn-pill-filled {
+  background: #0d0d0d;
+  color: #fff;
+  border: 1px solid #0d0d0d;
+}
+
+.btn-pill-filled:hover {
+  background: #222;
+}
+
+.btn-pill-outline {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.btn-pill-outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+.hero-scrim {
+  position: absolute;
+  inset: 0;
 }
 
 .hero-inner {
@@ -25,7 +105,6 @@
   max-width: 720px;
   width: 100%;
 }
-
 
 
 .hero-huge {

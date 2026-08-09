@@ -1,5 +1,6 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { Home, ShoppingBag, CalendarCheck, Star, Info, Mail } from 'lucide-react';
+import { useAuth } from '../Context/AuthContext.jsx';
 import './navbar.css';
 
 const links = [

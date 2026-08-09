@@ -1,6 +1,6 @@
-import api from '../api.js';
+import api from "../../api.js";
 import { useState } from 'react';
-import { useAuth } from '../context/AuthContext.jsx';
+import { useAuth } from '../../context/AuthContext.jsx';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 export default function Login() {

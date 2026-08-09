@@ -1,6 +1,6 @@
-import api from '../api.js';
+import api from '../../api.js';
 import { useState } from 'react';
-import { useAuth } from '../context/AuthContext.jsx';
+import { useAuth } from '../../context/AuthContext.jsx';
 
 const initialForm = {
   fullName: '', email: '', phone: '', partySize: 2,

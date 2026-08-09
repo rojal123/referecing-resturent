@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import api from '../api.js';
-import useReveal from '../hooks/useReveal.js';
+import api from '../../api.js';
+import useReveal from '../../hooks/useReveal.js';
 import './home.css';
+import imageHero from "../../assets/hero-kitchen.png";
 
 function Reveal({ as: Tag = 'div', className = '', children }) {
   const ref = useReveal();
@@ -34,23 +35,33 @@ export default function Home() {
 
   return (
     <div>
-      {/* HERO */}
-      <section className="hero">
-        <div className="hero-scrim" />
-        <div className="wrap hero-inner">
-          <h1 className="hero-huge hero-fade-2">
-            Slow food,served with intent.
-          </h1>
-          <p className="hero-fade-3 hero-subtitle">
-            A seasonal Italian kitchen. We believe in the slow art of pasta
-            making and the deliberate sourcing of local ingredients.
-          </p>
+    <section className="hero">
+      <img
+      src={imageHero}
+      alt="Hero Kitchen"
+      className="hero-bg"
+      />
+  <div className="hero-scrim" />
+  <div className="wrap hero-inner">
+    <h1 className="hero-huge hero-fade-2">
+      Slow food, served with intent.
+    </h1>
+    <p className="hero-fade-3 hero-subtitle">
+      A seasonal Italian kitchen rooted in Kathmandu. We believe in the
+      slow art of pasta making and the deliberate sourcing of local
+      ingredients.
+    </p>
 
-          <div className="hero-fade-4">
-            <Link to="/booking" className="btn-pill">Book a Table</Link>
-          </div>
-        </div>
-      </section>
+    <div className="hero-fade-4 hero-btn-group">
+      <Link to="/booking" className="btn-pill btn-pill-filled">
+        Book a Table
+      </Link>
+      <Link to="/order" className="btn-pill btn-pill-outline">
+        Order Ahead
+      </Link>
+    </div>
+  </div>
+</section>
 
       {/* MARQUEE - live from the menu */}
       <div className="marquee">

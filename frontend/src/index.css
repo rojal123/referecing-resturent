@@ -1,0 +1,208 @@
+:root {
+  --color-bg: #1a1411;
+  --color-bg-alt: #211a16;
+  --color-panel: #261e19;
+  --color-cream: #f2ead9;
+  --color-cream-dim: #cfc3ad;
+  --color-wine: #6e1423;
+  --color-wine-light: #93273a;
+  --color-gold: #c8a15a;
+  --color-line: rgba(242, 234, 217, 0.12);
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  --container: 1180px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-cream);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.wrap {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  display: inline-block;
+  margin-bottom: 14px;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  margin: 0 0 0.5em 0;
+  line-height: 1.12;
+}
+
+h1 { font-size: clamp(2.4rem, 5vw, 4.2rem); }
+h2 { font-size: clamp(1.8rem, 3.4vw, 2.7rem); }
+h3 { font-size: 1.3rem; }
+
+p { color: var(--color-cream-dim); }
+
+.section {
+  padding: 92px 0;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 26px;
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.btn-primary {
+  background: var(--color-wine);
+  color: var(--color-cream);
+}
+.btn-primary:hover {
+  background: var(--color-wine-light);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  border-color: var(--color-line);
+  color: var(--color-cream);
+  background: transparent;
+}
+.btn-outline:hover {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+  transform: translateY(-2px);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* form elements shared across booking / order / auth / contact / reviews */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.field label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-cream-dim);
+}
+
+.field input,
+.field select,
+.field textarea {
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-line);
+  color: var(--color-cream);
+  padding: 12px 14px;
+  border-radius: 3px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--color-gold);
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-card {
+  background: var(--color-panel);
+  border: 1px solid var(--color-line);
+  border-radius: 6px;
+  padding: 40px;
+  max-width: 560px;
+}
+
+.form-msg {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  padding: 10px 14px;
+  border-radius: 3px;
+  margin-bottom: 18px;
+}
+.form-msg.success {
+  background: rgba(200, 161, 90, 0.14);
+  color: var(--color-gold);
+  border: 1px solid rgba(200, 161, 90, 0.35);
+}
+.form-msg.error {
+  background: rgba(147, 39, 58, 0.18);
+  color: #e28b98;
+  border: 1px solid rgba(147, 39, 58, 0.45);
+}
+
+/* scroll-reveal animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
