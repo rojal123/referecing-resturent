@@ -71,7 +71,6 @@ export default function Login() {
           <div className="tavola-field">
             <div className="tavola-label-row">
               <label className="tavola-label" htmlFor="password">Password</label>
-              <Link to="/forgot-password" className="tavola-forgot">Forgot?</Link>
             </div>
             <input
               id="password"
@@ -84,15 +83,18 @@ export default function Login() {
             />
           </div>
 
-          <label className="tavola-remember">
-            <input
-              type="checkbox"
-              className="tavola-checkbox"
-              checked={remember}
-              onChange={(e) => setRemember(e.target.checked)}
-            />
-            <span className="tavola-remember-label">Remember me on this device</span>
-          </label>
+          <div className="tavola-remember-row">
+            <label className="tavola-remember">
+              <input
+                type="checkbox"
+                className="tavola-checkbox"
+                checked={remember}
+                onChange={(e) => setRemember(e.target.checked)}
+              />
+              <span className="tavola-remember-label">Remember me on this device</span>
+            </label>
+            <Link to="/forgot-password" className="tavola-forgot">Forgot Password?</Link>
+          </div>
 
           <button type="submit" className="tavola-btn tavola-btn-primary" disabled={loading}>
             {loading ? "Signing In..." : "Sign in"}

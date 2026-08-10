@@ -1,6 +1,7 @@
 import api from '../../api.js';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../Context/AuthContext.jsx';
+import './order.css';
 
 export default function Order() {
   const { user } = useAuth();
@@ -18,10 +19,12 @@ export default function Order() {
     pickupTime: ''
   });
 
-useEffect(() => {
+  useEffect(() => {
     api.get('/menu')
       .then((res) => {
-        console.log('GET /menu response:', res.data); // TEMP: check console, remove later
+        // Handle whichever shape the backend returns: a bare array,
+        // { items: [...] }, or { data: [...] }. Falls back to [] so
+        // .map() never crashes even if the response shape changes.
         const data = Array.isArray(res.data)
           ? res.data
           : (res.data?.items || res.data?.data || []);
@@ -84,134 +87,118 @@ useEffect(() => {
 
   const today = new Date().toISOString().split('T')[0];
 
-  return (
-    <section className="section" style={{ borderBottom: 'none' }}>
-      <div className="wrap">
-        <span className="eyebrow">Order Ahead</span>
-        <h2 style={{ marginBottom: 36 }}>Build your order.</h2>
+  // Group menu items by category, preserving first-seen order.
+  const categories = [];
+  const grouped = {};
+  menu.forEach((item) => {
+    const cat = item.category || 'Menu';
+    if (!grouped[cat]) {
+      grouped[cat] = [];
+      categories.push(cat);
+    }
+    grouped[cat].push(item);
+  });
 
-        <div className="order-layout">
-          <div>
-            {loadingMenu && <p>Loading menu...</p>}
-            {!loadingMenu && menu.map((item) => (
-              <div key={item.id} className="order-row">
-                <div>
-                  <h3 style={{ marginBottom: 2 }}>{item.name}</h3>
-                  <span className="eyebrow" style={{ marginBottom: 0 }}>{item.category}</span>
-                </div>
-                <div className="order-row-right">
-                  <span className="menu-price">${Number(item.price).toFixed(2)}</span>
-                  <div className="qty-control">
-                    <button type="button" onClick={() => updateQty(item.id, -1)}>&minus;</button>
-                    <span>{cart[item.id] || 0}</span>
-                    <button type="button" onClick={() => updateQty(item.id, 1)}>+</button>
+  return (
+    <div className="ord-page">
+      <div className="ord-inner">
+        <span className="ord-eyebrow">Order Ahead</span>
+        <h1 className="ord-title">Build your order.</h1>
+        <div className="ord-hr" />
+
+        <div className="ord-layout">
+          <div className="ord-menu">
+            {loadingMenu && <p className="ord-loading">Loading menu...</p>}
+
+            {!loadingMenu && categories.map((cat) => (
+              <div key={cat} className="ord-category">
+                <h2 className="ord-category-title">{cat}</h2>
+                {grouped[cat].map((item) => (
+                  <div key={item.id} className="ord-item">
+                    <div className="ord-item-info">
+                      <h3>{item.name}</h3>
+                      {item.description && <p>{item.description}</p>}
+                    </div>
+                    <div className="ord-item-right">
+                      <span className="ord-item-price">${Number(item.price).toFixed(2)}</span>
+                      {cart[item.id] ? (
+                        <div className="ord-qty">
+                          <button type="button" onClick={() => updateQty(item.id, -1)}>&minus;</button>
+                          <span>{cart[item.id]}</span>
+                          <button type="button" onClick={() => updateQty(item.id, 1)}>+</button>
+                        </div>
+                      ) : (
+                        <button type="button" className="ord-add-btn" onClick={() => updateQty(item.id, 1)}>
+                          Add
+                        </button>
+                      )}
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
             ))}
+
+            <div className="ord-policies">
+              <h3>Order Policies</h3>
+              <ul>
+                <li>Pickup windows are strictly enforced to ensure food quality.</li>
+                <li>Orders must be placed at least 45 minutes in advance.</li>
+                <li>Cancellations require a 2-hour notice for a full refund.</li>
+              </ul>
+            </div>
           </div>
 
-          <aside className="form-card order-summary">
+          <aside className="ord-summary">
             <h3>Your Order</h3>
 
-            {cartLines.length === 0 && <p style={{ fontSize: '0.88rem' }}>No items added yet.</p>}
+            {cartLines.length === 0 && <p className="ord-empty">No items added yet.</p>}
 
             {cartLines.map((l) => (
-              <div key={l.id} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.88rem', marginBottom: 6 }}>
+              <div key={l.id} className="ord-cart-line">
                 <span>{l.quantity} &times; {l.name}</span>
                 <span>${(l.price * l.quantity).toFixed(2)}</span>
               </div>
             ))}
 
             {cartLines.length > 0 && (
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: 'var(--font-mono)', color: 'var(--color-gold)', borderTop: '1px solid var(--color-line)', paddingTop: 10, marginTop: 10 }}>
+              <div className="ord-cart-total">
                 <span>Total</span>
                 <span>${total.toFixed(2)}</span>
               </div>
             )}
 
-            {status.text && <div className={`form-msg ${status.type}`} style={{ marginTop: 16 }}>{status.text}</div>}
+            {status.text && <div className={`ord-msg ${status.type}`}>{status.text}</div>}
 
-            <form onSubmit={handleSubmit} style={{ marginTop: 18 }}>
-              <div className="field">
+            <form onSubmit={handleSubmit} className="ord-form">
+              <div className="ord-field">
                 <label htmlFor="fullName">Full Name</label>
                 <input id="fullName" name="fullName" required value={form.fullName} onChange={handleFormChange} />
               </div>
-              <div className="field">
+              <div className="ord-field">
                 <label htmlFor="email">Email</label>
                 <input id="email" name="email" type="email" required value={form.email} onChange={handleFormChange} />
               </div>
-              <div className="field">
+              <div className="ord-field">
                 <label htmlFor="phone">Phone</label>
                 <input id="phone" name="phone" type="tel" required value={form.phone} onChange={handleFormChange} />
               </div>
-              <div className="field">
-                <label htmlFor="pickupDate">Pickup Date</label>
-                <input id="pickupDate" name="pickupDate" type="date" min={today} required value={form.pickupDate} onChange={handleFormChange} />
+              <div className="ord-row">
+                <div className="ord-field">
+                  <label htmlFor="pickupDate">Pickup Date</label>
+                  <input id="pickupDate" name="pickupDate" type="date" min={today} required value={form.pickupDate} onChange={handleFormChange} />
+                </div>
+                <div className="ord-field">
+                  <label htmlFor="pickupTime">Pickup Time</label>
+                  <input id="pickupTime" name="pickupTime" type="time" required value={form.pickupTime} onChange={handleFormChange} />
+                </div>
               </div>
-              <div className="field">
-                <label htmlFor="pickupTime">Pickup Time</label>
-                <input id="pickupTime" name="pickupTime" type="time" required value={form.pickupTime} onChange={handleFormChange} />
-              </div>
-              <button className="btn btn-primary" type="submit" disabled={submitting} style={{ width: '100%', justifyContent: 'center' }}>
+              <button className="ord-submit" type="submit" disabled={submitting}>
                 {submitting ? 'Placing Order...' : 'Place Order'}
               </button>
             </form>
           </aside>
         </div>
       </div>
-
-      <style>{`
-        .order-layout {
-          display: grid;
-          grid-template-columns: 1.4fr 1fr;
-          gap: 40px;
-          align-items: start;
-        }
-        .order-row {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 16px 0;
-          border-bottom: 1px solid var(--color-line);
-        }
-        .order-row-right {
-          display: flex;
-          align-items: center;
-          gap: 18px;
-        }
-        .menu-price {
-          font-family: var(--font-mono);
-          color: var(--color-gold);
-        }
-        .qty-control {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          font-family: var(--font-mono);
-        }
-        .qty-control button {
-          width: 28px;
-          height: 28px;
-          border-radius: 3px;
-          border: 1px solid var(--color-line);
-          background: var(--color-bg-alt);
-          color: var(--color-cream);
-        }
-        .qty-control button:hover {
-          border-color: var(--color-gold);
-          color: var(--color-gold);
-        }
-        .order-summary {
-          position: sticky;
-          top: 96px;
-          max-width: none;
-        }
-        @media (max-width: 900px) {
-          .order-layout { grid-template-columns: 1fr; }
-          .order-summary { position: static; }
-        }
-      `}</style>
-    </section>
+    </div>
   );
 }

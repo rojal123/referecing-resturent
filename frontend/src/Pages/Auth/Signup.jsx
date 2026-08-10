@@ -2,6 +2,7 @@ import api from "../../api.js";
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './signup.css';
+import signup from "../../assets/signup.jpg";
 
 const GENDERS = ['Female', 'Male', 'Non-binary', 'Prefer not to say'];
 const COUNTRIES = ['Nepal', 'India', 'United States', 'United Kingdom', 'Australia', 'Other'];
@@ -73,7 +74,10 @@ export default function Signup() {
   }
 
   return (
-    <section className="section" style={{ borderBottom: 'none', minHeight: '70vh', display: 'flex', alignItems: 'center' }}>
+    <div className="signup-page">
+      <img src={signup} alt="" className="signup-bg-image" />
+      <div className="signup-bg-overlay" />
+
       <div className="wrap" style={{ display: 'flex', justifyContent: 'center' }}>
         <div className="signup-card">
           <div className="signup-head">
@@ -85,9 +89,22 @@ export default function Signup() {
 
             <div className="social-buttons">
               <button type="button" className="social-btn" disabled title="Coming soon">
+                <span className="social-btn-badge social-btn-badge-google">
+                  <svg width="15" height="15" viewBox="0 0 24 24">
+                    <path fill="#4285F4" d="M23.52 12.27c0-.85-.08-1.67-.22-2.45H12v4.64h6.47c-.28 1.5-1.13 2.77-2.4 3.62v3h3.88c2.27-2.09 3.57-5.17 3.57-8.81z" />
+                    <path fill="#34A853" d="M12 24c3.24 0 5.95-1.07 7.94-2.92l-3.88-3c-1.08.72-2.45 1.15-4.06 1.15-3.12 0-5.77-2.11-6.71-4.94H1.28v3.1C3.26 21.3 7.31 24 12 24z" />
+                    <path fill="#FBBC05" d="M5.29 14.29a7.2 7.2 0 0 1 0-4.58v-3.1H1.28a12 12 0 0 0 0 10.78l4.01-3.1z" />
+                    <path fill="#EA4335" d="M12 4.75c1.76 0 3.34.6 4.58 1.79l3.44-3.44C17.94 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.28 6.61l4.01 3.1c.94-2.83 3.59-4.96 6.71-4.96z" />
+                  </svg>
+                </span>
                 Google
               </button>
               <button type="button" className="social-btn" disabled title="Coming soon">
+                <span className="social-btn-badge social-btn-badge-facebook">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="#fff">
+                    <path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.87h2.78l-.44 2.91h-2.34V22c4.78-.76 8.44-4.92 8.44-9.94z" />
+                  </svg>
+                </span>
                 Facebook
               </button>
             </div>
@@ -104,7 +121,9 @@ export default function Signup() {
                 <div className="field">
                   <label htmlFor="photo">Profile Photo</label>
                   <label className="field-file" htmlFor="photo">
-                    {photoName || 'Choose file — no file chosen'}
+                    <span className="field-file-text">
+                      {photoName || 'Choose file — no file chosen'}
+                    </span>
                   </label>
                   <input
                     id="photo"
@@ -267,6 +286,6 @@ export default function Signup() {
           </form>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

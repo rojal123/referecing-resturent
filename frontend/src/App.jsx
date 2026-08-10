@@ -38,6 +38,7 @@ export default function App() {
      <Route path="/signup" element={<Signup />} />
      <Route path="/forgot-password" element={<ForgotPassword />} />
      <Route path="/reset-password" element={<ResetPassword />} />
+     <Route path="*" element={<NotFound />} />
 
       {/* Public site: shares the Navbar + Footer via PublicLayout */}
       <Route element={<PublicLayout />}>
@@ -48,7 +49,6 @@ export default function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/about" element={<About />} />
-        <Route path="*" element={<NotFound />} />
       </Route>
 
       {/* Admin area: its own sidebar layout, no public Navbar/Footer.
