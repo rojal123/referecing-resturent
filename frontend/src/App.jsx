@@ -7,7 +7,6 @@ import About from './Pages/Root/About.jsx';
 import Order from './Pages/Root/Order.jsx'; 
 import Booking from './Pages/Root/Booking.jsx';
 import Contact from './Pages/Root/Contact.jsx';
-import Reviews from './Pages/Root/Reviews.jsx';
 
 import NotFound from './Pages/Errorpage/404.jsx';
 
@@ -47,7 +46,6 @@ export default function App() {
         <Route path="/booking" element={<Booking />} />
         <Route path="/order" element={<Order />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/reviews" element={<Reviews />} />
         <Route path="/about" element={<About />} />
       </Route>
 

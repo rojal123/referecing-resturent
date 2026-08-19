@@ -15,7 +15,7 @@ export default function Footer() {
           <Link to="/menu">Menu & Search</Link>
           <Link to="/booking">Book a Table</Link>
           <Link to="/order">Order Ahead</Link>
-          <Link to="/reviews">Reviews</Link>
+          <Link to="/menu#reviews">Reviews</Link>
           <Link to="/about">About</Link>
           <Link to="/contact">Contact</Link>
         </div>

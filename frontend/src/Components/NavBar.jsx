@@ -1,5 +1,5 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { Home, ShoppingBag, CalendarCheck, Star, Info, Mail } from 'lucide-react';
+import { Home, ShoppingBag, CalendarCheck, Info, Mail } from 'lucide-react';
 import { useAuth } from '../Context/AuthContext.jsx';
 import logo from '../assets/2.png';
 import './navbar.css';
@@ -9,7 +9,6 @@ const links = [
   { to: '/menu', label: 'Menu', icon: ShoppingBag },
   { to: '/booking', label: 'Book Table', icon: CalendarCheck },
   { to: '/order', label: 'Order Ahead', icon: ShoppingBag },
-  { to: '/reviews', label: 'Reviews', icon: Star },
   { to: '/about', label: 'About', icon: Info },
   { to: '/contact', label: 'Contact', icon: Mail }
 ];

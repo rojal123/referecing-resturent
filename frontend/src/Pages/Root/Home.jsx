@@ -19,8 +19,28 @@ const FALLBACK_DISHES = [
   'Wild Mushroom Arancini', 'Margherita Pizza', 'Tiramisu', 'Panna Cotta'
 ];
 
+const FALLBACK_REVIEWS = [
+  { id: 'fallback-1', full_name: 'Sarah M.', rating: 5, comment: 'The tagliatelle al ragu tasted like it came straight from a nonna\'s kitchen. Absolutely worth the trip.' },
+  { id: 'fallback-2', full_name: 'Rajesh T.', rating: 5, comment: 'Cozy atmosphere, attentive staff, and the burrata caprese was the best I\'ve had in Kathmandu.' },
+  { id: 'fallback-3', full_name: 'Emma L.', rating: 4, comment: 'Lovely evening out. The tiramisu alone is reason enough to come back.' }
+];
+
+function Stars({ value }) {
+  return (
+    <span className="review-stars">
+      {'\u2605'.repeat(value)}{'\u2606'.repeat(5 - value)}
+    </span>
+  );
+}
+
+function Avatar({ name }) {
+  const initial = name?.charAt(0).toUpperCase() || '?';
+  return <div className="review-avatar">{initial}</div>;
+}
+
 export default function Home() {
   const [dishes, setDishes] = useState(FALLBACK_DISHES);
+  const [topReviews, setTopReviews] = useState(FALLBACK_REVIEWS);
 
   useEffect(() => {
     api.get('/menu')
@@ -30,6 +50,22 @@ export default function Home() {
       })
       .catch(() => {
         // keep FALLBACK_DISHES if the menu can't be reached
+      });
+  }, []);
+
+  useEffect(() => {
+    api.get('/reviews')
+      .then((res) => {
+        const data = Array.isArray(res.data)
+          ? res.data
+          : (res.data?.items || res.data?.data || []);
+        const top = [...data]
+          .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
+          .slice(0, 3);
+        if (top.length > 0) setTopReviews(top);
+      })
+      .catch(() => {
+        // keep FALLBACK_REVIEWS if the backend can't be reached
       });
   }, []);
 
@@ -110,12 +146,37 @@ export default function Home() {
               { t: 'Order', d: 'Personalize your meal and collect it right on time.', to: '/order' }
             ].map((item, i) => (
               <Reveal key={item.t} className="how-card">
-                <span className="how-index">0{i + 1}</span>
+                <div className="how-circle">0{i + 1}</div>
                 <h3>{item.t}</h3>
                 <p>{item.d}</p>
                 <Link to={item.to} className="how-link">Go &rarr;</Link>
               </Reveal>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* TOP REVIEWS */}
+      <section className="section">
+        <div className="wrap">
+          <Reveal style={{ textAlign: 'center' }}>
+            <span className="eyebrow">Guest Reviews</span>
+            <h2 style={{ marginBottom: 40 }}>What people are saying.</h2>
+          </Reveal>
+
+          <div className="review-grid">
+            {topReviews.map((r) => (
+              <Reveal key={r.id} className="review-card">
+                <Avatar name={r.full_name} />
+                <Stars value={r.rating} />
+                <strong className="review-name">{r.full_name}</strong>
+                <p className="review-comment">&ldquo;{r.comment}&rdquo;</p>
+              </Reveal>
+            ))}
+          </div>
+
+          <div style={{ textAlign: 'center', marginTop: 36 }}>
+            <Link to="/menu#reviews" className="how-link">Read All Reviews &rarr;</Link>
           </div>
         </div>
       </section>

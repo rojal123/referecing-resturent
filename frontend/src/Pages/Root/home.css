@@ -17,9 +17,12 @@
 }
 
 .hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   background: linear-gradient(
     180deg,
-    rgba(0, 0, 0, 0.15) 0%,
+    rgba(0, 0, 0, 0.55) 0%,
     rgba(0, 0, 0, 0.35) 40%,
     rgba(0, 0, 0, 0.6) 100%
   );
@@ -239,10 +242,19 @@
   transform: translateY(-4px);
 }
 
-.how-index {
-  font-family: var(--font-mono);
+.how-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-gold);
   color: var(--color-gold);
+  font-family: var(--font-mono);
   font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
 }
 
 .how-link {
@@ -251,6 +263,73 @@
   color: var(--color-gold);
   display: inline-block;
   margin-top: 10px;
+}
+
+/* Top reviews */
+.review-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.review-card {
+  background: var(--color-panel);
+  border: 1px solid var(--color-line);
+  border-radius: 6px;
+  padding: 30px;
+  text-align: center;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+.review-card:hover {
+  border-color: var(--color-gold);
+  transform: translateY(-4px);
+}
+
+.review-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  color: #1a1411;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.review-stars {
+  font-family: var(--font-mono);
+  color: var(--color-gold);
+  font-size: 1rem;
+  display: block;
+  margin-bottom: 14px;
+}
+
+.review-name {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-cream);
+  opacity: 0.8;
+  display: block;
+  margin-bottom: 14px;
+}
+
+.review-comment {
+  font-family: "Playfair Display", Georgia, serif;
+  font-style: italic;
+  color: var(--color-cream);
+  line-height: 1.6;
+}
+
+@media (max-width: 860px) {
+  .review-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* CTA with watermark */
