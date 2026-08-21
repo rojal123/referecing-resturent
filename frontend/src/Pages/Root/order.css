@@ -30,14 +30,15 @@
   align-items: stretch;
   gap: 48px;
   width: 100%;
-  min-height: 620px;
+  min-height: 850px;
   padding: 40px 40px 0 0;
   background: var(--cream);
   border-bottom: 1px solid var(--line);
 }
 
 .order-hero__text {
-  padding: 56px 0 56px 40px;
+  padding: 54px 0 54px 38px;
+  margin-top: 100px;
 }
 
 @media (max-width: 900px) {
@@ -119,11 +120,13 @@
 .order-hero__image img {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
+  width: 600px;
+  height: 700px;
   object-fit: cover;
   display: block;
   border-radius: 16px;
+  margin-top: 50px;
+
 }
 
 .order-hero__badge {
@@ -291,7 +294,8 @@
 /* ===== Order summary ===== */
 .order-summary {
   position: sticky;
-  top: 24px;
+  top: 96px;
+  z-index: 10;
   background: var(--cream);
   border: 1px solid var(--line);
   border-radius: 14px;

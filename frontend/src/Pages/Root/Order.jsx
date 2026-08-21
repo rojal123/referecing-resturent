@@ -1,7 +1,16 @@
 import React, { useState } from "react";
 import "./Order.css";
 import order from "../../assets/4.png";
-
+import BruschettaalPomodoro from '../../assets/5.png';
+import BurrataPeaches from '../../assets/6.png';
+import Saffron  from '../../assets/7.png';
+import TagliatellealRagù from '../../assets/8.png';
+import CacioePepe from '../../assets/9.png';
+import GnocchialPesto from '../../assets/10.png';
+import BranzinoalForno from '../../assets/11.png';
+import PolloallaMilanese from '../../assets/12.png';
+import Tiramisù from '../../assets/13.png';
+import PannaCotta from '../../assets/14.png';
 const MENU = [
   {
     category: "Antipasti",
@@ -12,7 +21,7 @@ const MENU = [
         price: 9,
         description: "Grilled sourdough, marinated tomato, basil, garlic oil.",
         initials: "BP",
-        image: order,
+        image: BruschettaalPomodoro,
       },
       {
         id: "burrata",
@@ -20,7 +29,7 @@ const MENU = [
         price: 14,
         description: "Creamy burrata, grilled peach, prosciutto, aged balsamic.",
         initials: "BP",
-        image: order,
+        image: BurrataPeaches,
       },
       {
         id: "arancini",
@@ -28,7 +37,7 @@ const MENU = [
         price: 11,
         description: "Crisp risotto spheres, mozzarella, spicy arrabbiata.",
         initials: "SA",
-        image: order,
+        image: Saffron,
       },
     ],
   },
@@ -41,7 +50,7 @@ const MENU = [
         price: 19,
         description: "Slow-braised beef ragù, hand-cut tagliatelle, parmigiano.",
         initials: "TR",
-        image: order,
+        image: TagliatellealRagù,
       },
       {
         id: "cacio",
@@ -49,7 +58,7 @@ const MENU = [
         price: 17,
         description: "Tonnarelli, pecorino romano, cracked black pepper.",
         initials: "CP",
-        image: order,
+        image: CacioePepe,
       },
       {
         id: "gnocchi",
@@ -57,7 +66,7 @@ const MENU = [
         price: 18,
         description: "Potato gnocchi, basil pesto, green beans, pine nuts.",
         initials: "GP",
-        image: order,
+        image: GnocchialPesto,
       },
     ],
   },
@@ -70,7 +79,7 @@ const MENU = [
         price: 28,
         description: "Whole roasted sea bass, lemon, capers, herb salsa.",
         initials: "BF",
-        image: order,
+        image: BranzinoalForno,
       },
       {
         id: "pollo",
@@ -78,7 +87,7 @@ const MENU = [
         price: 24,
         description: "Breaded chicken cutlet, arugula, cherry tomato, lemon.",
         initials: "PM",
-        image: order,
+        image: PolloallaMilanese,
       },
     ],
   },
@@ -91,7 +100,7 @@ const MENU = [
         price: 10,
         description: "Espresso-soaked savoiardi, mascarpone, cocoa.",
         initials: "TI",
-        image: order,
+        image: Tiramisù,
       },
       {
         id: "pannacotta",
@@ -99,7 +108,7 @@ const MENU = [
         price: 9,
         description: "Vanilla bean cream, macerated berries.",
         initials: "PC",
-        image: order,
+        image: PannaCotta,
       },
     ],
   },
