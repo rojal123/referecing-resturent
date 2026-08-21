@@ -34,13 +34,14 @@
     rgba(20, 10, 8, 0.55) 45%,
     rgba(20, 10, 8, 0.15) 75%
   );
+  padding: 50px 0px;
 }
 
 .ct-hero__content {
   position: relative;
   z-index: 2;
   max-width: 620px;
-  padding: 80px 64px;
+  padding: 80px 100px;
   color: #F7F5F1;
 }
 

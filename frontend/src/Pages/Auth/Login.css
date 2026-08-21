@@ -40,13 +40,101 @@
   position: relative;
   z-index: 2;
   width: 100%;
-  max-width: 460px;
+  max-width: 400px;
+  height: 650px;
   background: var(--tv-off-white);
   padding: 56px 48px 44px;
   border-radius: 14px;
   box-shadow: 0 30px 60px rgba(0,0,0,0.35);
 }
 
+.tavola-social-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.tavola-social-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #3a2a2d;
+  background: #fff;
+  border: 1px solid var(--tv-slate);
+  border-radius: 6px;
+  cursor: pointer;
+}
+.tavola-social-btn:hover { background: #f7f5f3; }
+
+.tavola-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 0 0 26px;
+  color: var(--tv-slate);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+}
+.tavola-divider::before,
+.tavola-divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #e2dcdc;
+}
+.tavola-divider span { padding: 0 12px; }
+
+.tavola-input {
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 8px;
+  padding: 11px 14px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 16px;
+  color: #3a2a2d;
+  background: #fff;
+  border: 1px solid var(--tv-slate);
+  border-radius: 6px;
+  outline: none;
+}
+.tavola-input::placeholder { color: #a3aeb9; }
+.tavola-input:focus { border-color: var(--tv-maroon); }
+
+.tavola-input-wrap { position: relative; }
+.tavola-input-wrap .tavola-input { padding-right: 42px; }
+
+.tavola-eye-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(calc(-50% + 4px));
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--tv-slate);
+  display: flex;
+}
+.tavola-eye-btn:hover { color: var(--tv-maroon); }
+
+.tavola-footer-link {
+  margin: 20px 0 0;
+  text-align: center;
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #4a4247;
+}
+.tavola-footer-link a {
+  color: var(--tv-maroon);
+  font-weight: 700;
+  text-decoration: none;
+}
+.tavola-footer-link a:hover { text-decoration: underline; }
 
 .tavola-title {
   margin: 0;
@@ -197,17 +285,6 @@
 }
 .tavola-btn-secondary:hover { background: #f0c2c2; }
 
-.tavola-footer {
-  margin: 22px 0 0;
-  text-align: center;
-  font-size: 13px;
-  font-style: italic;
-  color: var(--tv-slate);
-}
-.tavola-footer a {
-  color: var(--tv-maroon);
-  text-decoration: underline;
-}
 
 .tavola-msg {
   margin: -6px 0 20px;

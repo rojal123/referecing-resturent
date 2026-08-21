@@ -1,16 +1,13 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { Home, ShoppingBag, CalendarCheck, Info, Mail } from 'lucide-react';
 import { useAuth } from '../Context/AuthContext.jsx';
 import logo from '../assets/2.png';
 import './navbar.css';
 
 const links = [
-  { to: '/', label: 'Home', icon: Home, end: true },
-  { to: '/menu', label: 'Menu', icon: ShoppingBag },
-  { to: '/booking', label: 'Book Table', icon: CalendarCheck },
-  { to: '/order', label: 'Order Ahead', icon: ShoppingBag },
-  { to: '/about', label: 'About', icon: Info },
-  { to: '/contact', label: 'Contact', icon: Mail }
+  { to: '/booking', label: 'Reserve' },
+  { to: '/order', label: 'Menu' },
+  { to: '/about', label: 'About'},
+  { to: '/contact', label: 'Contact'}
 ];
 
 export default function Navbar() {
@@ -34,15 +31,13 @@ export default function Navbar() {
 
         <nav className="nav-links">
           {links.map((l) => {
-            const Icon = l.icon;
             return (
               <NavLink
                 key={l.to}
                 to={l.to}
                 end={l.end}
                 className={({ isActive }) => `nav-pill ${isActive ? 'active' : ''}`}
-              >
-              <Icon size={20} strokeWidth={2} className="nav-pill-icon" />                
+              >              
               <span>{l.label}</span>
               </NavLink>
             );

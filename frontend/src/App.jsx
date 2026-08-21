@@ -1,7 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import PublicLayout from './Components/PublicLayout.jsx';
 
-import Menu from './Pages/Root/Menu.jsx';
 import Home from './Pages/Root/Home.jsx';
 import About from './Pages/Root/About.jsx';
 import Order from './Pages/Root/Order.jsx'; 
@@ -42,7 +41,6 @@ export default function App() {
       {/* Public site: shares the Navbar + Footer via PublicLayout */}
       <Route element={<PublicLayout />}>
         <Route path="/" element={<Home />} />
-        <Route path="/menu" element={<Menu />} />
         <Route path="/booking" element={<Booking />} />
         <Route path="/order" element={<Order />} />
         <Route path="/contact" element={<Contact />} />

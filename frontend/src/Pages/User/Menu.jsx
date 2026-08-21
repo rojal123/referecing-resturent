@@ -28,7 +28,7 @@ export default function Menu() {
 
   function handleSearchSubmit(e) {
     e.preventDefault();
-    fetchItems(search);
+    fetchItems(search);x
   }
 
   const categories = ['All', ...new Set(items.map((i) => i.category))];
