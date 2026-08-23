@@ -7,6 +7,7 @@
   justify-content: center;
   overflow: hidden;
   padding: 60px 24px;
+  box-sizing: border-box;
 }
 
 .signup-bg-image {
@@ -36,6 +37,7 @@
   padding: 40px;
   max-width: 960px;
   width: 100%;
+  box-sizing: border-box;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
 }
 
@@ -51,6 +53,7 @@
 .social-buttons {
   display: flex;
   gap: 12px;
+  flex-wrap: wrap;
 }
 
 .social-btn {
@@ -86,9 +89,10 @@
   background: #1877F2;
 }
 
+/* THE FIX: minmax(0, 1fr) instead of 1fr lets columns actually shrink */
 .signup-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 32px;
 }
 
@@ -101,6 +105,19 @@
   margin-bottom: 16px;
   padding-bottom: 10px;
   border-bottom: 1px solid var(--color-line);
+}
+
+/* min-width: 0 stops any field from forcing its grid column wider
+   than the track — this is what date/select inputs were doing */
+.field {
+  min-width: 0;
+}
+
+.field input,
+.field select {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
 }
 
 .field-file {
@@ -117,6 +134,7 @@
   font-size: 0.85rem;
   cursor: pointer;
   transition: border-color 0.2s ease;
+  min-width: 0;
 }
 
 .field-file-text {

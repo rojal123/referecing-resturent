@@ -1,124 +1,121 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import imageHero from '../../assets/hero-kitchen.png';
+import imageKitchen from '../../assets/rustic-luxury-italian-kitchen-designs-ideas.jpg';
 
-const timeline = [
-  { year: '2014', text: 'Tavola opens as a ten-table trattoria on Lakeside Avenue.', icon: '🍷' },
-  { year: '2017', text: 'We start sourcing produce directly from three regional farms.', icon: '🌿' },
-  { year: '2021', text: 'The dining room is rebuilt around an open kitchen.', icon: '🔥' },
-  { year: '2024', text: 'Online booking and advance ordering launch.', icon: '✨' }
+const table = [
+  { n: '01', t: 'Seasonal', d: 'The menu follows the harvest, not the calendar — what growers bring us shapes what we cook.' },
+  { n: '02', t: 'Direct', d: 'We buy from farms and fishers we can name, not distributors we can\u2019t.' },
+  { n: '03', t: 'Unhurried', d: 'Pasta is rolled by hand each morning. Good food takes the time it takes.' },
 ];
 
-const values = [
-  { t: 'Seasonal', d: 'The menu follows the harvest, not the calendar.' },
-  { t: 'Direct', d: 'We buy from farms and fishers we can name.' },
-  { t: 'Unhurried', d: 'Good food takes the time it takes.' }
-];
-
-// Animation presets
 const fadeInUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.2, 0.65, 0.3, 0.9] } }
+  hidden: { opacity: 0, y: 32 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.2, 0.65, 0.3, 0.9] } },
 };
 
-const staggerContainer = {
+const stagger = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
+  visible: { opacity: 1, transition: { staggerChildren: 0.12 } },
 };
 
 export default function About() {
   return (
-    <div className="editorial-page">
-      {/* Ambient Background Glows */}
-      <div className="ambient-glow glow-1" />
-      <div className="ambient-glow glow-2" />
-
-      {/* Hero Section */}
-      <section className="hero-section">
-        <motion.div 
-          className="wrap hero-wrap"
+    <div className="mr-about">
+      {/* HERO */}
+      <section className="mr-hero">
+        <img src={imageHero} alt="" className="mr-hero-bg" />
+        <div className="mr-hero-scrim" />
+        <div className="mr-hero-vignette" />
+        <motion.div
+          className="wrap mr-hero-inner"
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={staggerContainer}
+          animate="visible"
+          variants={stagger}
         >
-          <motion.span variants={fadeInUp} className="eyebrow">About Tavola</motion.span>
-          <motion.h1 variants={fadeInUp} className="hero-title">
-            A small kitchen with <br />
-            <span className="italic-accent">a long memory.</span>
+          <motion.span variants={fadeInUp} className="mr-eyebrow mr-eyebrow-cream">
+            About Tavola
+          </motion.span>
+          <motion.h1 variants={fadeInUp} className="mr-hero-title">
+            A small kitchen with
+            <br />
+            a long memory.
           </motion.h1>
-          <motion.p variants={fadeInUp} className="hero-desc">
+          <motion.p variants={fadeInUp} className="mr-hero-desc">
             Tavola began as a family table before it became a restaurant. We
             still cook the way we did on day one: a short seasonal menu,
             produce from people we know, and enough time to do it properly.
           </motion.p>
+          <motion.div variants={fadeInUp}>
+            <Link to="/booking" className="mr-btn">
+              Reserve a Table
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+                <path d="M12 2l2.4 6.9L21 11l-6.6 2.1L12 20l-2.4-6.9L3 11l6.6-2.1L12 2z" />
+              </svg>
+            </Link>
+          </motion.div>
         </motion.div>
       </section>
 
-      {/* Alternating Timeline Section */}
-      <section className="story-section">
-        <div className="wrap">
-          <motion.div 
-            className="section-header"
+      {/* STORY */}
+      <section className="mr-story">
+        <div className="wrap mr-story-grid">
+          <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: '-100px' }}
             variants={fadeInUp}
           >
-            <span className="eyebrow">Our Story</span>
-            <h2>How we got here</h2>
+            <span className="mr-eyebrow mr-eyebrow-dark">Our Story</span>
+            <h2 className="mr-story-title">
+              Ingredients first,
+              <br />
+              everything else second.
+            </h2>
+            <p className="mr-story-desc">
+              We began with a simple belief: the most memorable meals are
+              made with care, curiosity, and a real respect for the
+              ingredient. Every service at Tavola moves with the rhythm of
+              the season — precise in the kitchen, unhurried at the table.
+            </p>
           </motion.div>
-
-          <div className="timeline-container">
-            <div className="timeline-center-line" />
-            
-            {timeline.map((t, index) => {
-              const isEven = index % 2 === 0;
-              return (
-                <motion.div
-                  key={t.year}
-                  className={`timeline-node ${isEven ? 'node-left' : 'node-right'}`}
-                  initial={{ opacity: 0, x: isEven ? -40 : 40 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-15% 0px" }}
-                  transition={{ duration: 0.7, ease: "easeOut" }}
-                >
-                  <div className="timeline-content glass-card">
-                    <span className="timeline-icon">{t.icon}</span>
-                    <span className="timeline-year">{t.year}</span>
-                    <p className="timeline-text">{t.text}</p>
-                  </div>
-                  <div className="timeline-dot" />
-                </motion.div>
-              );
-            })}
-          </div>
+          <motion.div
+            className="mr-story-photo"
+            initial={{ opacity: 0, scale: 0.97 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.8, ease: [0.2, 0.65, 0.3, 0.9] }}
+          >
+            <img src={imageKitchen} alt="A chef plating a dish at Tavola" />
+          </motion.div>
         </div>
       </section>
 
-      {/* Values Section */}
-      <section className="values-section">
+      {/* THE TABLE */}
+      <section className="mr-table-section">
         <div className="wrap">
-          <motion.div 
-            className="section-header"
+          <motion.span
+            className="mr-eyebrow mr-eyebrow-dark mr-table-eyebrow"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeInUp}
           >
-            <span className="eyebrow">Our Values</span>
-            <h2>What we cook by</h2>
-          </motion.div>
+            The Table
+          </motion.span>
 
-          <motion.div 
-            className="values-grid"
+          <motion.div
+            className="mr-table-grid"
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
+            viewport={{ once: true, margin: '-80px' }}
+            variants={stagger}
           >
-            {values.map((v) => (
-              <motion.div key={v.t} variants={fadeInUp} className="value-card glass-card">
+            {table.map((v) => (
+              <motion.div key={v.n} variants={fadeInUp} className="mr-table-item">
+                <div className="mr-table-rule" />
+                <span className="mr-table-num">{v.n}</span>
                 <h3>{v.t}</h3>
-                <div className="card-divider" />
                 <p>{v.d}</p>
               </motion.div>
             ))}
@@ -126,265 +123,248 @@ export default function About() {
         </div>
       </section>
 
+      {/* CLOSING CTA */}
+      <section className="mr-cta">
+        <motion.div
+          className="wrap mr-cta-inner"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-100px' }}
+          variants={stagger}
+        >
+          <motion.span variants={fadeInUp} className="mr-eyebrow mr-eyebrow-cream">
+            An Evening Awaits
+          </motion.span>
+          <motion.h2 variants={fadeInUp} className="mr-cta-title">
+            Come hungry. Leave unhurried.
+          </motion.h2>
+          <motion.p variants={fadeInUp} className="mr-cta-sub">
+            Dinner Tuesday&ndash;Sunday &middot; 5&ndash;10:30 PM
+          </motion.p>
+          <motion.div variants={fadeInUp}>
+            <Link to="/booking" className="mr-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+                <rect x="3" y="5" width="18" height="16" rx="2" />
+                <path d="M3 10h18M8 3v4M16 3v4" />
+              </svg>
+              Make a Reservation
+            </Link>
+          </motion.div>
+        </motion.div>
+      </section>
+
       <style>{`
-        /* Global Variables & Resets */
-        .editorial-page {
-          --bg-color: #0c0c0e;
-          --text-main: #f3f3f2;
-          --text-muted: #9c9c9c;
-          --accent-gold: #cda365;
-          --glass-bg: rgba(255, 255, 255, 0.03);
-          --glass-border: rgba(255, 255, 255, 0.08);
-          
-          background-color: var(--bg-color);
-          color: var(--text-main);
-          font-family: 'Inter', system-ui, -apple-system, sans-serif;
-          position: relative;
-          overflow: hidden;
-          min-height: 100vh;
+        .mr-about {
+          --mr-maroon: #6E1423;
+          --mr-maroon-dark: #3F0E17;
+          --mr-cream: #FBF6EC;
+          --mr-cream-2: #F5EEE1;
+          --mr-blush: #F3D9D9;
+          --mr-ink: #2A1B14;
+          --mr-ink-soft: #6b5645;
+          --mr-gold: #B08968;
+          --mr-line: rgba(110, 20, 35, 0.14);
+
+          font-family: var(--font-body, Georgia, serif);
+          overflow-x: hidden;
         }
 
-        .wrap {
-          max-width: 1080px;
-          margin: 0 auto;
-          padding: 0 24px;
-        }
-
-        /* Typography */
-        h1, h2, h3 {
-          font-family: 'Playfair Display', 'Georgia', serif;
+        .mr-about h1, .mr-about h2, .mr-about h3 {
+          font-family: var(--font-display, Georgia, serif);
           font-weight: 400;
           margin: 0;
         }
 
-        .eyebrow {
-          display: block;
-          font-size: 0.75rem;
-          text-transform: uppercase;
-          letter-spacing: 0.25em;
-          color: var(--accent-gold);
-          margin-bottom: 1.5rem;
-        }
-
-        .italic-accent {
-          font-style: italic;
-          color: var(--accent-gold);
-        }
-
-        .section-header {
-          text-align: center;
-          margin-bottom: 4rem;
-        }
-
-        .section-header h2 {
-          font-size: clamp(2rem, 4vw, 3rem);
-        }
-
-        /* Ambient Backgrounds */
-        .ambient-glow {
-          position: absolute;
-          border-radius: 50%;
-          filter: blur(120px);
-          z-index: 0;
-          pointer-events: none;
-        }
-        .glow-1 {
-          top: -10%;
-          left: -10%;
-          width: 500px;
-          height: 500px;
-          background: rgba(205, 163, 101, 0.08);
-        }
-        .glow-2 {
-          top: 40%;
-          right: -15%;
-          width: 600px;
-          height: 600px;
-          background: rgba(255, 255, 255, 0.03);
-        }
-
-        /* Glassmorphism Utility */
-        .glass-card {
-          background: var(--glass-bg);
-          backdrop-filter: blur(12px);
-          -webkit-backdrop-filter: blur(12px);
-          border: 1px solid var(--glass-border);
-          border-radius: 12px;
-        }
-
-        /* Hero Section */
-        .hero-section {
-          position: relative;
-          padding: 180px 0 120px;
-          z-index: 1;
-        }
-        .hero-wrap {
-          max-width: 800px;
-        }
-        .hero-title {
-          font-size: clamp(3rem, 6vw, 5.5rem);
-          line-height: 1.1;
-          margin-bottom: 2rem;
-        }
-        .hero-desc {
-          font-size: 1.125rem;
-          line-height: 1.7;
-          color: var(--text-muted);
-          max-width: 540px;
-        }
-
-        /* Alternating Timeline Section */
-        .story-section {
-          position: relative;
-          padding: 80px 0;
-          z-index: 1;
-        }
-
-        .timeline-container {
-          position: relative;
-          max-width: 900px;
+        .wrap {
+          max-width: 1120px;
           margin: 0 auto;
+          padding: 0 24px;
         }
 
-        .timeline-center-line {
-          position: absolute;
-          left: 50%;
-          transform: translateX(-50%);
-          top: 0;
-          bottom: 0;
-          width: 1px;
-          background: linear-gradient(to bottom, transparent, var(--glass-border) 10%, var(--glass-border) 90%, transparent);
-        }
-
-        .timeline-node {
-          position: relative;
-          width: 50%;
-          padding: 2rem 0;
-        }
-        
-        .node-left {
-          left: 0;
-          padding-right: 3rem;
-          text-align: right;
-        }
-        
-        .node-right {
-          left: 50%;
-          padding-left: 3rem;
-        }
-
-        .timeline-content {
-          padding: 2rem;
-          display: inline-block;
-          max-width: 400px;
-          position: relative;
-        }
-
-        .timeline-year {
+        .mr-eyebrow {
           display: block;
-          font-family: 'Playfair Display', serif;
-          font-size: 2.5rem;
-          color: var(--text-main);
-          margin-bottom: 0.5rem;
-          line-height: 1;
+          font-family: var(--font-mono, monospace);
+          font-size: 0.72rem;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+          margin-bottom: 1.2rem;
+        }
+        .mr-eyebrow-dark { color: var(--mr-maroon); }
+        .mr-eyebrow-cream { color: rgba(251, 246, 236, 0.75); }
+
+        .mr-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 14px 28px;
+          border-radius: 999px;
+          background: var(--mr-cream);
+          color: var(--mr-maroon-dark);
+          font-family: var(--font-mono, monospace);
+          font-size: 0.78rem;
+          font-weight: 700;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          text-decoration: none;
+          transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s ease;
+        }
+        .mr-btn:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 14px 28px rgba(0,0,0,0.28);
         }
 
-        .timeline-icon {
-          font-size: 1.5rem;
-          display: block;
-          margin-bottom: 1rem;
+        /* HERO */
+        .mr-hero {
+          position: relative;
+          min-height: 92vh;
+          min-height: 92dvh;
+          display: flex;
+          align-items: flex-end;
+          overflow: hidden;
         }
-
-        .timeline-text {
-          color: var(--text-muted);
-          margin: 0;
-          line-height: 1.6;
-        }
-
-        .timeline-dot {
+        .mr-hero-bg {
           position: absolute;
-          top: 50%;
-          width: 12px;
-          height: 12px;
-          background: var(--accent-gold);
-          border-radius: 50%;
-          box-shadow: 0 0 15px rgba(205, 163, 101, 0.4);
-          transform: translateY(-50%);
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          filter: brightness(0.8);
         }
-
-        .node-left .timeline-dot { right: -6px; }
-        .node-right .timeline-dot { left: -6px; }
-
-        /* Values Section */
-        .values-section {
-          padding: 100px 0 160px;
+        .mr-hero-scrim {
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(ellipse 90% 75% at 55% 38%, transparent 0%, rgba(10,5,6,0.45) 65%, rgba(6,3,4,0.88) 100%);
+        }
+        .mr-hero-vignette {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(180deg, rgba(10,5,6,0) 0%, rgba(10,5,6,0.15) 35%, rgba(8,4,5,0.82) 78%, rgba(6,3,4,0.96) 100%);
+        }
+        .mr-hero-inner {
           position: relative;
           z-index: 1;
+          padding: 0 0px 90px 0px ;
+          max-width: 760px;
+        }
+        .mr-hero-title {
+          font-size: clamp(2.6rem, 6vw, 4.6rem);
+          line-height: 1.08;
+          color: var(--mr-cream);
+          margin-bottom: 1.4rem;
+        }
+        .mr-hero-desc {
+          font-family: var(--font-body, Georgia, serif);
+          font-size: 1.08rem;
+          line-height: 1.7;
+          color: rgba(251, 246, 236, 0.82);
+          max-width: 480px;
+          margin: 0 0 2rem;
         }
 
-        .values-grid {
+        /* STORY */
+        .mr-story {
+          background: var(--mr-cream);
+          padding: 100px 0;
+        }
+        .mr-story-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 64px;
+          align-items: center;
+        }
+        .mr-story-title {
+          font-size: clamp(1.9rem, 3.2vw, 2.7rem);
+          color: var(--mr-ink);
+          line-height: 1.15;
+          margin-bottom: 1.4rem;
+        }
+        .mr-story-desc {
+          color: var(--mr-ink-soft);
+          font-size: 1.02rem;
+          line-height: 1.75;
+          max-width: 460px;
+        }
+        .mr-story-photo {
+          border-radius: 8px;
+          overflow: hidden;
+          aspect-ratio: 4 / 3;
+        }
+        .mr-story-photo img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+
+        /* THE TABLE */
+        .mr-table-section {
+          background: var(--mr-cream-2);
+          border-top: 1px solid var(--mr-line);
+          padding: 90px 0 100px;
+        }
+        .mr-table-eyebrow { margin-bottom: 2.6rem; }
+        .mr-table-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: 32px;
+          gap: 40px;
         }
-
-        .value-card {
-          padding: 3rem 2.5rem;
-          text-align: center;
-          transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.4s ease;
-        }
-
-        .value-card:hover {
-          transform: translateY(-8px);
-          background: rgba(255, 255, 255, 0.05);
-        }
-
-        .value-card h3 {
-          font-size: 1.75rem;
-          margin-bottom: 1rem;
-        }
-
-        .card-divider {
-          width: 40px;
+        .mr-table-rule {
           height: 1px;
-          background: var(--accent-gold);
-          margin: 0 auto 1.5rem;
+          background: var(--mr-line);
+          margin-bottom: 1.4rem;
         }
-
-        .value-card p {
-          color: var(--text-muted);
-          line-height: 1.6;
+        .mr-table-num {
+          display: block;
+          font-family: var(--font-mono, monospace);
+          font-size: 0.72rem;
+          letter-spacing: 0.1em;
+          color: var(--mr-gold);
+          margin-bottom: 0.7rem;
+        }
+        .mr-table-item h3 {
+          font-size: 1.5rem;
+          color: var(--mr-ink);
+          margin-bottom: 0.7rem;
+        }
+        .mr-table-item p {
+          color: var(--mr-ink-soft);
+          line-height: 1.65;
+          font-size: 0.96rem;
           margin: 0;
         }
 
-        /* Responsive Design */
+        /* CTA */
+        .mr-cta {
+          background: var(--mr-maroon-dark);
+          padding: 130px 24px;
+          text-align: center;
+        }
+        .mr-cta-inner { max-width: 640px; margin: 0 auto; }
+        .mr-cta-title {
+          font-size: clamp(2rem, 4vw, 3.2rem);
+          color: var(--mr-cream);
+          line-height: 1.15;
+          margin-bottom: 1.2rem;
+        }
+        .mr-cta-sub {
+          font-family: var(--font-mono, monospace);
+          font-size: 0.85rem;
+          letter-spacing: 0.04em;
+          color: rgba(251, 246, 236, 0.7);
+          margin: 0 0 2.2rem;
+        }
+
+        /* RESPONSIVE */
         @media (max-width: 860px) {
-          .values-grid {
-            grid-template-columns: 1fr;
-            max-width: 400px;
-            margin: 0 auto;
-          }
+          .mr-story-grid { grid-template-columns: 1fr; gap: 40px; }
+          .mr-story-photo { order: -1; }
+          .mr-table-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; gap: 32px; }
+          .mr-story, .mr-table-section { padding-top: 72px; padding-bottom: 72px; }
+          .mr-cta { padding: 96px 24px; }
+        }
 
-          .timeline-center-line {
-            left: 20px;
-          }
-
-          .timeline-node {
-            width: 100%;
-            padding: 1.5rem 0 1.5rem 50px !important;
-            left: 0 !important;
-            text-align: left !important;
-          }
-
-          .timeline-dot {
-            left: 14px !important;
-            right: auto !important;
-          }
-
-          .timeline-content {
-            width: 100%;
-            max-width: none;
-          }
+        @media (prefers-reduced-motion: reduce) {
+          .mr-about * { animation: none !important; transition: none !important; }
         }
       `}</style>
     </div>

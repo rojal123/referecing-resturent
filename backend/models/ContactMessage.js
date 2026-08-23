@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const contactMessageSchema = new mongoose.Schema(
   {
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null },
     fullName: { type: String, required: true },
     email: { type: String, required: true },
     subject: { type: String, default: null },
@@ -10,4 +11,4 @@ const contactMessageSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model('ContactMessage', contactMessageSchema);
+module.exports = mongoose.models.ContactMessage || mongoose.model('ContactMessage', contactMessageSchema);

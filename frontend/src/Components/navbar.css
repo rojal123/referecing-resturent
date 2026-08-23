@@ -96,9 +96,41 @@
 }
 
 .nav-account {
+  position: relative;
+}
+
+.nav-account-trigger {
   display: flex;
   align-items: center;
   gap: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px 10px 6px 6px;
+  border-radius: 999px;
+  transition: background 0.15s ease;
+}
+
+.nav-account-trigger:hover {
+  background: rgba(242, 234, 217, 0.08);
+}
+
+.nav-account-name {
+  color: var(--color-cream);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.nav-chevron {
+  color: var(--color-cream-dim);
+  transition: transform 0.15s ease;
+  flex-shrink: 0;
+}
+
+.nav-chevron.open {
+  transform: rotate(180deg);
 }
 
 .nav-avatar {
@@ -114,6 +146,94 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+}
+
+.nav-dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 260px;
+  background: var(--color-panel);
+  border: 1px solid var(--color-line);
+  border-radius: 10px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+  z-index: 60;
+  animation: nav-dropdown-in 0.15s ease;
+}
+
+@keyframes nav-dropdown-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.nav-dropdown-header {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 16px 18px;
+}
+
+.nav-dropdown-name {
+  color: var(--color-cream);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.nav-dropdown-email {
+  color: var(--color-cream-dim);
+  font-size: 13px;
+}
+
+.nav-dropdown-divider {
+  height: 1px;
+  background: var(--color-line);
+  margin: 0;
+}
+
+.nav-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 13px 18px;
+  background: transparent;
+  border: none;
+  color: var(--color-cream);
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.nav-dropdown-item:hover {
+  background: rgba(242, 234, 217, 0.06);
+}
+
+.nav-dropdown-item svg {
+  color: var(--color-gold);
+  flex-shrink: 0;
+}
+
+.nav-dropdown-logout {
+  color: #e07a6b;
+}
+
+.nav-dropdown-logout svg {
+  color: #e07a6b;
+}
+
+.nav-dropdown-logout:hover {
+  background: rgba(224, 122, 107, 0.1);
 }
 
 .btnoutline {

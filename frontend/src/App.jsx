@@ -1,11 +1,18 @@
 import { Routes, Route } from 'react-router-dom';
 import PublicLayout from './Components/PublicLayout.jsx';
+import UserLayout from './Components/userLayout.jsx';
 
 import Home from './Pages/Root/Home.jsx';
 import About from './Pages/Root/About.jsx';
+import Menu from './Pages/Root/menu.jsx';
 import Order from './Pages/Root/Order.jsx'; 
 import Booking from './Pages/Root/Booking.jsx';
+  
 import Contact from './Pages/Root/Contact.jsx';
+
+import MyOrders from './Pages/User/booking/Myorder.jsx';
+import MyBookings from './Pages/User/booking/MyBookings.jsx';
+import UserDashboard from './Pages/User/Dashboard/Dashboard.jsx';
 
 import NotFound from './Pages/Errorpage/404.jsx';
 
@@ -42,9 +49,18 @@ export default function App() {
       <Route element={<PublicLayout />}>
         <Route path="/" element={<Home />} />
         <Route path="/booking" element={<Booking />} />
-        <Route path="/order" element={<Order />} />
+        <Route path="/menu" element={<Menu />} />
+        <Route path="/Order" element={<Order />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
+      </Route>
+
+      {/* Logged-in user area: sidebar shell, no public Navbar/Footer --
+          same reasoning as the admin area below. */}
+      <Route element={<UserLayout />}>
+        <Route path="/dashboard" element={<UserDashboard />} />
+        <Route path="/my-bookings" element={<MyBookings />} />
+        <Route path="/my-orders" element={<MyOrders />} />
       </Route>
 
       {/* Admin area: its own sidebar layout, no public Navbar/Footer.

@@ -33,6 +33,7 @@ const FALLBACK_REVIEWS = [
   {
     id: 'fallback-1',
     full_name: 'Sarah M.',
+    role: 'Regular since 2022',
     rating: 5,
     comment:
       "The tagliatelle al ragu tasted like it came straight from a nonna's kitchen. Absolutely worth the trip.",
@@ -40,6 +41,7 @@ const FALLBACK_REVIEWS = [
   {
     id: 'fallback-2',
     full_name: 'Rajesh T.',
+    role: 'Food blogger, Kathmandu Bites',
     rating: 5,
     comment:
       "Cozy atmosphere, attentive staff, and the burrata caprese was the best I've had in Kathmandu.",
@@ -47,8 +49,54 @@ const FALLBACK_REVIEWS = [
   {
     id: 'fallback-3',
     full_name: 'Emma L.',
+    role: 'Guest',
     rating: 4,
     comment: 'Lovely evening out. The tiramisu alone is reason enough to come back.',
+  },
+];
+
+const FEATURES = [
+  {
+    title: 'Pasta made fresh daily',
+    desc: 'Every morning before the doors open, our kitchen rolls pasta by hand — the same way it always has.',
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M4 12c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8-8 8-8-3.6-8-8z"/><path d="M8 12h8M12 8v8"/></svg>
+    ),
+  },
+  {
+    title: 'Seasonal tasting menu',
+    desc: 'Built around what local growers bring us — the menu shifts with the seasons.',
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M6 3v8a3 3 0 003 3v7M6 3v8M9 3v8M18 3c-2 1-3 3-3 6s1 4 3 4v8"/></svg>
+    ),
+  },
+  {
+    title: 'Open six nights a week',
+    desc: 'Dinner service from 5 PM, closed Mondays. Reservations recommended on weekends.',
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+    ),
+  },
+];
+
+const DISH_PREVIEWS = [
+  {
+    name: 'Tagliatelle al Ragu',
+    price: '$24',
+    desc: 'Hand-rolled pasta, six-hour beef ragu, a whisper of nutmeg.',
+    image: imageKitchen,
+  },
+  {
+    name: 'Burrata Caprese',
+    price: '$16',
+    desc: 'Creamy burrata, heirloom tomatoes, torn basil, Sicilian oil.',
+    image: imageHero,
+  },
+  {
+    name: 'Tiramisu della Casa',
+    price: '$11',
+    desc: 'Mascarpone, espresso-soaked savoiardi, a dusting of cocoa.',
+    image: imageKitchen,
   },
 ];
 
@@ -59,11 +107,6 @@ function Stars({ value }) {
       {'\u2606'.repeat(5 - value)}
     </span>
   );
-}
-
-function Avatar({ name }) {
-  const initial = name?.charAt(0).toUpperCase() || '?';
-  return <div className="review-avatar">{initial}</div>;
 }
 
 export default function Home() {
@@ -96,7 +139,6 @@ export default function Home() {
       .catch(() => {});
   }, []);
 
-  // Subtle parallax on hero background
   useEffect(() => {
     const hero = heroRef.current;
     if (!hero) return;
@@ -115,7 +157,7 @@ export default function Home() {
 
   return (
     <div className="home-page">
-      {/* HERO */}
+      {/* HERO — unchanged */}
       <section className="hero" ref={heroRef}>
         <img src={imageHero} alt="Tavola kitchen" className="hero-bg" />
         <div className="hero-scrim" />
@@ -142,7 +184,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* MARQUEE */}
+      {/* MARQUEE — unchanged */}
       <div className="marquee" aria-hidden="true">
         <div className="marquee-track">
           {[...dishes, ...dishes].map((d, i) => (
@@ -154,118 +196,140 @@ export default function Home() {
         </div>
       </div>
 
-      {/* KITCHEN / INGREDIENTS */}
-      <section className="section kitchen-section" id="kitchen">
-        <div className="wrap kitchen-grid">
-          <Reveal className="kitchen-copy">
-            <span className="eyebrow">Our Kitchen</span>
+      {/* FEATURE BAR */}
+      <section className="features-bar">
+        <div className="wrap features-grid">
+          {FEATURES.map((f, i) => (
+            <Reveal key={f.title} className="feature-item" delay={i * 80}>
+              <div className="feature-icon">{f.icon}</div>
+              <div>
+                <h3>{f.title}</h3>
+                <p>{f.desc}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      {/* STORY */}
+      <section className="section story-section" id="kitchen">
+        <div className="wrap story-grid">
+          <Reveal className="story-photo">
+            <div className="story-photo-frame">
+              <img src={imageKitchen} alt="Rustic Italian kitchen" />
+            </div>
+            <div className="story-stat-card">
+              <div className="story-stat-number">12</div>
+              <div className="story-stat-label">Years of Cooking</div>
+            </div>
+          </Reveal>
+          <Reveal className="story-copy" delay={100}>
+            <span className="eyebrow-bf">Our Story</span>
             <h2>Ingredients first, everything else second.</h2>
             <p>
               Our menu changes with the seasons, guided by what local growers
               bring to our kitchen door. It is a dialogue between Italian
               heritage and the rich terroir of the Kathmandu valley.
             </p>
-            <Link to="/about" className="btn btn-outline kitchen-cta">
-              Read Our Story
+            <Link to="/about" className="story-link">
+              Read Our Story <span className="how-arrow">&rarr;</span>
             </Link>
-          </Reveal>
-          <Reveal className="kitchen-photo" delay={120}>
-            <div className="kitchen-photo-frame">
-              <img
-                src={imageKitchen}
-                alt="Rustic Italian kitchen"
-                className="kitchen-photo-img"
-              />
-              <div className="kitchen-photo-accent" />
-            </div>
           </Reveal>
         </div>
       </section>
 
-      {/* THE PROCESS */}
-      <section className="section process-section">
+      {/* MENU PREVIEW */}
+      <section className="section menu-preview-section">
         <div className="wrap">
-          <Reveal className="section-header">
-            <span className="eyebrow">Experience</span>
-            <h2>The Process</h2>
-            <p className="section-lead">
-              From first glance at the menu to the last bite — three simple steps.
+          <Reveal className="menu-preview-header section-header">
+            <span className="eyebrow-bf">From Our Kitchen</span>
+            <h2>A taste of what&apos;s on the table</h2>
+            <p className="section-lead-bf">
+              A small selection from our seasonal menu. Each dish is made to
+              order with ingredients sourced within fifty kilometres.
             </p>
           </Reveal>
 
-          <div className="how-grid">
-            {[
-              {
-                t: 'Browse',
-                d: 'Explore our seasonal offerings and signature classics.',
-                to: '/menu',
-              },
-              {
-                t: 'Reserve',
-                d: 'Pick a date, time, and party size — we hold the table for you.',
-                to: '/booking',
-              },
-              {
-                t: 'Order',
-                d: 'Personalize your meal and collect it right on time.',
-                to: '/order',
-              },
-            ].map((item, i) => (
-              <Reveal key={item.t} className="how-card" delay={i * 100}>
-                <div className="how-circle">0{i + 1}</div>
-                <h3>{item.t}</h3>
-                <p>{item.d}</p>
-                <Link to={item.to} className="how-link">
-                  Go <span className="how-arrow">&rarr;</span>
-                </Link>
+          <div className="menu-preview-grid">
+            {DISH_PREVIEWS.map((dish, i) => (
+              <Reveal key={dish.name} className="dish-preview-card" delay={i * 90}>
+                <img src={dish.image} alt={dish.name} className="dish-preview-img" />
+                <div className="dish-preview-body">
+                  <div className="dish-preview-row">
+                    <h3>{dish.name}</h3>
+                    <span className="dish-preview-price">{dish.price}</span>
+                  </div>
+                  <p className="dish-preview-desc">{dish.desc}</p>
+                </div>
               </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* TOP REVIEWS */}
+      {/* QUOTE */}
+      <section className="quote-section">
+        <svg className="quote-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
+          <path d="M7 11c0-3 2-5 5-5M7 11a4 4 0 004 4v3a7 7 0 01-4-2M17 11c0-3 2-5 5-5" />
+        </svg>
+        <Reveal as="blockquote" className="quote-text">
+          &ldquo;We never set out to be a restaurant. We set out to keep the
+          table set, and the door open, and the pasta warm — and somehow
+          that became a place people keep coming back to.&rdquo;
+        </Reveal>
+        <p className="quote-attribution">Founder, Tavola</p>
+      </section>
+
+      {/* REVIEWS */}
       <section className="section reviews-section">
         <div className="wrap">
           <Reveal className="section-header">
-            <span className="eyebrow">Guest Reviews</span>
-            <h2>What people are saying.</h2>
+            <span className="eyebrow-bf">Kind Words</span>
+            <h2>What our guests say</h2>
           </Reveal>
 
           <div className="review-grid">
             {topReviews.map((r, i) => (
               <Reveal key={r.id} className="review-card" delay={i * 90}>
-                <Avatar name={r.full_name} />
                 <Stars value={r.rating} />
-                <strong className="review-name">{r.full_name}</strong>
                 <p className="review-comment">&ldquo;{r.comment}&rdquo;</p>
+                <strong className="review-name">{r.full_name}</strong>
+                {r.role && <span className="review-role">{r.role}</span>}
               </Reveal>
             ))}
           </div>
-
-          <Reveal className="reviews-footer">
-            <Link to="/menu#reviews" className="how-link">
-              Read All Reviews <span className="how-arrow">&rarr;</span>
-            </Link>
-          </Reveal>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="section cta-section">
-        <span className="cta-watermark" aria-hidden="true">
-          EST. 2014
-        </span>
-        <Reveal className="cta-inner">
-          <span className="eyebrow">Reserve Your Evening</span>
-          <h2>The table is set. Are you coming?</h2>
-          <p className="cta-lead">
-            Join us for an evening of careful cooking and unhurried hospitality.
-          </p>
-          <Link to="/booking" className="btn btn-primary cta-btn">
-            Book a Table Now
-          </Link>
-        </Reveal>
+      {/* FIND US */}
+      <section className="findus-section">
+        <div className="wrap findus-grid">
+          <Reveal className="findus-copy">
+            <span className="eyebrow-bf findus-eyebrow">Find Us</span>
+            <h2>The table is set. Are you coming?</h2>
+            <div className="findus-detail">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+              Thamel, Kathmandu
+            </div>
+            <div className="findus-detail">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+              Tue&ndash;Sun 5 PM&ndash;10:30 PM &middot; Closed Mon
+            </div>
+            <div className="findus-btn-group">
+              <Link to="/booking" className="btn-pill btn-pill-filled">
+                Book a Table
+              </Link>
+              <Link to="/contact" className="btn-pill btn-pill-outline">
+                Contact Us
+              </Link>
+            </div>
+          </Reveal>
+          <Reveal className="findus-photo" delay={100}>
+            <div className="findus-photo-frame">
+              <img src={imageKitchen} alt="Tavola dining room" />
+            </div>
+          </Reveal>
+        </div>
       </section>
     </div>
   );

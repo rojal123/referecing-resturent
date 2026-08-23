@@ -2,12 +2,13 @@ const express = require('express');
 const Order = require('../models/Order');
 const MenuItem = require('../models/MenuItem');
 const { serializeOrder } = require('../utils/serializers');
+const requireAuth = require('../Middleware/auth');
 
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+router.post('/', requireAuth, async (req, res) => {
   try {
-    const { fullName, email, phone, pickupDate, pickupTime, userId, items } = req.body;
+    const { fullName, email, phone, pickupDate, pickupTime, items } = req.body;
 
     if (!fullName || !email || !phone || !pickupDate || !pickupTime || !items || items.length === 0) {
       return res.status(400).json({ message: 'Please complete all order details and add at least one item' });
@@ -30,7 +31,7 @@ router.post('/', async (req, res) => {
     const totalAmount = orderItems.reduce((sum, i) => sum + i.unitPrice * i.quantity, 0);
 
     const order = await Order.create({
-      userId: userId || null,
+      userId: req.user.id,
       fullName,
       email,
       phone,

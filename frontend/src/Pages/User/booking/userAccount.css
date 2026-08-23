@@ -1,0 +1,135 @@
+.acct-page {
+  max-width: 1100px;
+}
+
+.acct-page__header {
+  margin-bottom: 24px;
+}
+
+.acct-page__eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-wine);
+  margin: 0 0 6px;
+}
+
+.acct-page__title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: #1a1411;
+  margin: 0;
+}
+
+.acct-note {
+  color: #77706a;
+  font-size: 15px;
+}
+
+.acct-error {
+  color: #c0392b;
+  font-size: 15px;
+}
+
+.acct-empty {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  padding: 48px 24px;
+  text-align: center;
+}
+
+.acct-empty p {
+  color: #8b847d;
+  margin: 0 0 20px;
+  font-size: 15px;
+}
+
+.acct-empty__cta {
+  background: var(--color-wine);
+  color: #fff;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.acct-empty__cta:hover {
+  background: var(--color-wine-light);
+}
+
+.acct-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.acct-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  padding: 22px 24px;
+}
+
+.acct-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.acct-card__top h3 {
+  font-family: var(--font-display);
+  font-size: 19px;
+  color: #1a1411;
+  margin: 0 0 6px;
+}
+
+.acct-card__meta {
+  color: #77706a;
+  font-size: 14px;
+  margin: 0;
+}
+
+.acct-card__note {
+  color: #77706a;
+  font-size: 14px;
+  font-style: italic;
+  margin: 14px 0 0;
+}
+
+.acct-card__ref {
+  color: #a49c94;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  margin: 14px 0 0;
+}
+
+.acct-status {
+  flex-shrink: 0;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.acct-status.status-pending {
+  background: rgba(184, 134, 11, 0.12);
+  color: #b8860b;
+}
+
+.acct-status.status-confirmed {
+  background: rgba(30, 142, 74, 0.12);
+  color: #1e8e4a;
+}
+
+.acct-status.status-cancelled {
+  background: rgba(192, 57, 43, 0.12);
+  color: #c0392b;
+}

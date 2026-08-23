@@ -1,118 +1,9 @@
-import React, { useState } from "react";
-import "./Order.css";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import api from "../../api.js";
+import { useAuth } from "../../Context/AuthContext.jsx";
+import "./order.css";
 import order from "../../assets/4.png";
-import BruschettaalPomodoro from '../../assets/5.png';
-import BurrataPeaches from '../../assets/6.png';
-import Saffron  from '../../assets/7.png';
-import TagliatellealRagù from '../../assets/8.png';
-import CacioePepe from '../../assets/9.png';
-import GnocchialPesto from '../../assets/10.png';
-import BranzinoalForno from '../../assets/11.png';
-import PolloallaMilanese from '../../assets/12.png';
-import Tiramisù from '../../assets/13.png';
-import PannaCotta from '../../assets/14.png';
-const MENU = [
-  {
-    category: "Antipasti",
-    items: [
-      {
-        id: "bruschetta",
-        name: "Bruschetta al Pomodoro",
-        price: 9,
-        description: "Grilled sourdough, marinated tomato, basil, garlic oil.",
-        initials: "BP",
-        image: BruschettaalPomodoro,
-      },
-      {
-        id: "burrata",
-        name: "Burrata & Peaches",
-        price: 14,
-        description: "Creamy burrata, grilled peach, prosciutto, aged balsamic.",
-        initials: "BP",
-        image: BurrataPeaches,
-      },
-      {
-        id: "arancini",
-        name: "Saffron Arancini",
-        price: 11,
-        description: "Crisp risotto spheres, mozzarella, spicy arrabbiata.",
-        initials: "SA",
-        image: Saffron,
-      },
-    ],
-  },
-  {
-    category: "Pasta",
-    items: [
-      {
-        id: "tagliatelle",
-        name: "Tagliatelle al Ragù",
-        price: 19,
-        description: "Slow-braised beef ragù, hand-cut tagliatelle, parmigiano.",
-        initials: "TR",
-        image: TagliatellealRagù,
-      },
-      {
-        id: "cacio",
-        name: "Cacio e Pepe",
-        price: 17,
-        description: "Tonnarelli, pecorino romano, cracked black pepper.",
-        initials: "CP",
-        image: CacioePepe,
-      },
-      {
-        id: "gnocchi",
-        name: "Gnocchi al Pesto",
-        price: 18,
-        description: "Potato gnocchi, basil pesto, green beans, pine nuts.",
-        initials: "GP",
-        image: GnocchialPesto,
-      },
-    ],
-  },
-  {
-    category: "Mains",
-    items: [
-      {
-        id: "branzino",
-        name: "Branzino al Forno",
-        price: 28,
-        description: "Whole roasted sea bass, lemon, capers, herb salsa.",
-        initials: "BF",
-        image: BranzinoalForno,
-      },
-      {
-        id: "pollo",
-        name: "Pollo alla Milanese",
-        price: 24,
-        description: "Breaded chicken cutlet, arugula, cherry tomato, lemon.",
-        initials: "PM",
-        image: PolloallaMilanese,
-      },
-    ],
-  },
-  {
-    category: "Dolci",
-    items: [
-      {
-        id: "tiramisu",
-        name: "Tiramisù",
-        price: 10,
-        description: "Espresso-soaked savoiardi, mascarpone, cocoa.",
-        initials: "TI",
-        image: Tiramisù,
-      },
-      {
-        id: "pannacotta",
-        name: "Panna Cotta",
-        price: 9,
-        description: "Vanilla bean cream, macerated berries.",
-        initials: "PC",
-        image: PannaCotta,
-      },
-    ],
-  },
-];
 
 const FEATURES = [
   {
@@ -169,14 +60,59 @@ function Icon({ name }) {
 }
 
 export default function OrderPage() {
+  const { user } = useAuth();
+
+  // Menu items now come from the database via GET /api/menu instead of a
+  // hardcoded MENU constant (that constant never existed here, which is
+  // what was throwing "MENU is not defined").
+  const [menuGroups, setMenuGroups] = useState([]);
+  const [menuStatus, setMenuStatus] = useState("loading"); // loading | ready | error
+
   const [cart, setCart] = useState({});
   const [form, setForm] = useState({
-    fullName: "",
-    email: "",
+    fullName: user?.fullName || "",
+    email: user?.email || "",
     phone: "",
     pickupDate: "",
     pickupTime: "",
   });
+  const [submitStatus, setSubmitStatus] = useState("idle"); // idle | submitting | success | error
+  const [submitMessage, setSubmitMessage] = useState("");
+
+  useEffect(() => {
+    let cancelled = false;
+
+    api
+      .get("/menu")
+      .then((res) => {
+        if (cancelled) return;
+        const items = Array.isArray(res.data) ? res.data : [];
+        const available = items.filter((item) => item.is_available !== false);
+
+        const byCategory = new Map();
+        available.forEach((item) => {
+          const category = item.category || "Menu";
+          if (!byCategory.has(category)) byCategory.set(category, []);
+          byCategory.get(category).push(item);
+        });
+
+        setMenuGroups(
+          Array.from(byCategory.entries()).map(([category, groupItems]) => ({
+            category,
+            items: groupItems,
+          }))
+        );
+        setMenuStatus("ready");
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setMenuStatus("error");
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const addItem = (item) => {
     setCart((prev) => {
@@ -210,7 +146,7 @@ export default function OrderPage() {
   const cartEntries = Object.values(cart);
   const totalItems = cartEntries.reduce((sum, entry) => sum + entry.quantity, 0);
   const totalPrice = cartEntries.reduce(
-    (sum, entry) => sum + entry.quantity * entry.item.price,
+    (sum, entry) => sum + entry.quantity * Number(entry.item.price),
     0
   );
 
@@ -224,11 +160,43 @@ export default function OrderPage() {
     form.email.trim() &&
     form.phone.trim() &&
     form.pickupDate &&
-    form.pickupTime;
+    form.pickupTime &&
+    submitStatus !== "submitting";
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!canSubmit) return;
-    alert("Order placed! (demo only)");
+
+    setSubmitStatus("submitting");
+    setSubmitMessage("");
+
+    try {
+      await api.post("/orders", {
+        fullName: form.fullName,
+        email: form.email,
+        phone: form.phone,
+        pickupDate: form.pickupDate,
+        pickupTime: form.pickupTime,
+        items: cartEntries.map(({ item, quantity }) => ({
+          menuItemId: item.id,
+          quantity,
+          unitPrice: Number(item.price),
+        })),
+      });
+
+      setSubmitStatus("success");
+      setSubmitMessage("Order placed! We'll see you at pickup.");
+      setCart({});
+    } catch (err) {
+      const status = err?.response?.status;
+      setSubmitStatus("error");
+      if (status === 401) {
+        setSubmitMessage("Please log in to place an order.");
+      } else {
+        setSubmitMessage(
+          err?.response?.data?.message || "Something went wrong placing your order. Please try again."
+        );
+      }
+    }
   };
 
   return (
@@ -273,7 +241,21 @@ export default function OrderPage() {
             Tap a dish to add it to your order.
           </p>
 
-          {MENU.map((group) => (
+          {menuStatus === "loading" && (
+            <p className="order-summary__empty">Loading the menu...</p>
+          )}
+
+          {menuStatus === "error" && (
+            <div className="form-msg error">
+              We couldn't load the menu right now. Please refresh the page.
+            </div>
+          )}
+
+          {menuStatus === "ready" && menuGroups.length === 0 && (
+            <p className="order-summary__empty">No dishes are available right now.</p>
+          )}
+
+          {menuGroups.map((group) => (
             <div className="menu-group" key={group.category}>
               <div className="menu-group__heading">
                 <span>{group.category}</span>
@@ -282,13 +264,15 @@ export default function OrderPage() {
 
               {group.items.map((item) => (
                 <div className="menu-item" key={item.id}>
-                  <div className="menu-item__thumb">
-                    <img src={item.image} alt={item.name} />
-                  </div>
+                  {item.image_url && (
+                    <div className="menu-item__thumb">
+                      <img src={item.image_url} alt={item.name} />
+                    </div>
+                  )}
                   <div className="menu-item__info">
                     <div className="menu-item__title-row">
                       <h4>{item.name}</h4>
-                      <span className="menu-item__price">${item.price}</span>
+                      <span className="menu-item__price">${Number(item.price).toFixed(2)}</span>
                     </div>
                     <p>{item.description}</p>
                   </div>
@@ -321,7 +305,7 @@ export default function OrderPage() {
                   <div className="cart-line__info">
                     <span className="cart-line__name">{item.name}</span>
                     <span className="cart-line__price">
-                      ${item.price * quantity}
+                      ${(Number(item.price) * quantity).toFixed(2)}
                     </span>
                   </div>
                   <div className="cart-line__controls">
@@ -337,13 +321,28 @@ export default function OrderPage() {
           {cartEntries.length > 0 && (
             <div className="order-summary__total">
               <span>Total</span>
-              <span>${totalPrice}</span>
+              <span>${totalPrice.toFixed(2)}</span>
             </div>
           )}
 
           <div className="order-summary__divider" />
 
           <h4 className="order-summary__section-title">Pickup details</h4>
+
+          {submitStatus === "success" && (
+            <div className="form-msg success">{submitMessage}</div>
+          )}
+          {submitStatus === "error" && (
+            <div className="form-msg error">
+              {submitMessage}
+              {submitMessage === "Please log in to place an order." && (
+                <>
+                  {" "}
+                  <Link to="/login">Log in</Link>
+                </>
+              )}
+            </div>
+          )}
 
           <label className="field">
             <span>Full name</span>
@@ -399,7 +398,7 @@ export default function OrderPage() {
             disabled={!canSubmit}
             onClick={handleSubmit}
           >
-            Add items to order
+            {submitStatus === "submitting" ? "Placing order..." : "Add items to order"}
           </button>
           <p className="order-summary__note">
             Orders require at least 45 minutes notice.

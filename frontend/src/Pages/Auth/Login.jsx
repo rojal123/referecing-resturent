@@ -30,7 +30,8 @@ export default function Login() {
       const res = await api.post("/auth/login", { email, password });
       login(res.data.user, res.data.token);
       setStatus({ type: "success", text: res.data.message });
-      navigate(res.data.user.isAdmin ? "/admin" : "/");
+      const redirectTo = location.state?.from;
+      navigate(redirectTo || (res.data.user.isAdmin ? "/admin" : "/"));
     } catch (err) {
       setStatus({
         type: "error",

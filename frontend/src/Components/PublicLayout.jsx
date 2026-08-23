@@ -1,6 +1,6 @@
 import { Outlet, Navigate } from 'react-router-dom';
 import { useAuth } from '../Context/AuthContext.jsx';
-import Navbar from './Navbar.jsx';
+import Navbar from './NavBar.jsx';
 import Footer from './Footer.jsx';
 
 export default function PublicLayout() {

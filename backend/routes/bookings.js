@@ -1,19 +1,20 @@
 const express = require('express');
 const Booking = require('../models/Booking');
 const { serializeBooking } = require('../utils/serializers');
+const requireAuth = require('../Middleware/auth');
 
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+router.post('/', requireAuth, async (req, res) => {
   try {
-    const { fullName, email, phone, partySize, bookingDate, bookingTime, specialRequest, userId } = req.body;
+    const { fullName, email, phone, partySize, bookingDate, bookingTime, specialRequest } = req.body;
 
     if (!fullName || !email || !phone || !partySize || !bookingDate || !bookingTime) {
       return res.status(400).json({ message: 'Please fill in all required booking fields' });
     }
 
     const booking = await Booking.create({
-      userId: userId || null,
+      userId: req.user.id,
       fullName,
       email,
       phone,
