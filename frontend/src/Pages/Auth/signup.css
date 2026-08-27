@@ -1,4 +1,20 @@
 .signup-page {
+  /* Light theme palette, scoped to this page only — the rest of the
+     app can stay on the dark theme untouched. These are my best
+     estimate of your tokens from the screenshot; if you've got a
+     global theme/variables file, share it and I'll match it exactly
+     instead of approximating. */
+  --color-panel: #fbf8f3;
+  --color-bg-alt: #f3ede2;
+  --color-line: #e2d9c8;
+  --color-cream: #2c231c;
+  --color-cream-dim: #756a5b;
+  --color-gold: #8a6116;
+  --color-wine: #7c2635;
+  --color-wine-light: #96303f;
+  --color-on-accent: #fbf3e7;
+  color-scheme: light;
+
   position: relative;
   min-height: 100vh;
   width: 100%;
@@ -120,6 +136,27 @@
   min-width: 0;
 }
 
+/* Color-only overrides for inputs/selects, scoped to this page.
+   Their padding/border-radius/font almost certainly come from a
+   global stylesheet you didn't paste in — this just re-colors them
+   for light mode without fighting whatever's already set. */
+.signup-page .field input,
+.signup-page .field select {
+  background: var(--color-panel);
+  color: var(--color-cream);
+  border-color: var(--color-line);
+}
+
+.signup-page .field input::placeholder {
+  color: var(--color-cream-dim);
+  opacity: 1;
+}
+
+.signup-page .field input:focus,
+.signup-page .field select:focus {
+  border-color: var(--color-gold);
+}
+
 .field-file {
   display: flex;
   align-items: center;
@@ -154,7 +191,7 @@
   padding: 7px 16px;
   border-radius: 3px;
   background: var(--color-wine);
-  color: var(--color-cream);
+  color: var(--color-on-accent);
   font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.06em;
@@ -164,6 +201,20 @@
 }
 
 .field-file:hover::after {
+  background: var(--color-wine-light);
+}
+
+/* Defensive: .btn-primary's own colors likely live in a global
+   stylesheet tuned for the dark theme. This scoped override keeps
+   the submit button legible here regardless — safe to delete if
+   your global button styles already handle light surfaces. */
+.signup-card .btn.btn-primary {
+  background: var(--color-wine);
+  color: var(--color-on-accent);
+  border: none;
+}
+
+.signup-card .btn.btn-primary:hover:not(:disabled) {
   background: var(--color-wine-light);
 }
 

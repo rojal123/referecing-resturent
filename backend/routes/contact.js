@@ -1,14 +1,8 @@
-const mongoose = require('mongoose');
+const express = require('express');
+const contactController = require('../controllers/contactController');
 
-const contactMessageSchema = new mongoose.Schema(
-  {
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null },
-    fullName: { type: String, required: true },
-    email: { type: String, required: true },
-    subject: { type: String, default: null },
-    message: { type: String, required: true }
-  },
-  { timestamps: true }
-);
+const router = express.Router();
 
-module.exports = mongoose.model('ContactMessage', contactMessageSchema);
+router.post('/', contactController.createMessage);
+
+module.exports = router;
