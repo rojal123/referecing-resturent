@@ -1,13 +1,13 @@
 import { Routes, Route } from 'react-router-dom';
 import PublicLayout from './Components/PublicLayout.jsx';
-import UserLayout from './Components/userLayout.jsx';
+import UserLayout from './Components/UserLayout.jsx';
 
 import Home from './Pages/Root/Home.jsx';
 import About from './Pages/Root/About.jsx';
-import Menu from './Pages/Root/menu.jsx';
-import Order from './Pages/Root/Order.jsx'; 
+import Menu from './Pages/Root/Menu.jsx';
+import Order from './Pages/Root/Order.jsx';
 import Booking from './Pages/Root/Booking.jsx';
-  
+
 import Contact from './Pages/Root/Contact.jsx';
 
 import MyOrders from './Pages/User/booking/Myorder.jsx';
