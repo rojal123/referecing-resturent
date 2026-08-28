@@ -14,6 +14,16 @@ const reviewRoutes = require('./routes/reviews');
 const contactRoutes = require('./routes/contact');
 const adminRoutes = require('./routes/admin');
 
+// Fail loudly at boot if required env vars are missing, instead of
+// silently 500-ing on the first request that needs them.
+const REQUIRED_ENV_VARS = ['JWT_SECRET', 'MONGODB_URI'];
+const missing = REQUIRED_ENV_VARS.filter((key) => !process.env[key]);
+if (missing.length > 0) {
+  console.error(`FATAL: Missing required environment variable(s): ${missing.join(', ')}`);
+  console.error('Set these in your hosting platform\'s environment variable settings.');
+  process.exit(1);
+}
+
 const app = express();
 
 connectDB();
