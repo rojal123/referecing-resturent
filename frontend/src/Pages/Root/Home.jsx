@@ -4,7 +4,9 @@ import api from '../../api.js';
 import useReveal from '../../hooks/useReveal.js';
 import './home.css';
 import imageHero from '../../assets/hero-kitchen.png';
-import imageKitchen from '../../assets/rustic-luxury-italian-kitchen-designs-ideas.jpg';
+import TagliatellealRagu from '../../assets/8.png';
+import BurrataCaprese from '../../assets/6.png';
+import TiramisudellaCasa from '../../assets/13.png';
 
 function Reveal({ as: Tag = 'div', className = '', style, children, delay = 0 }) {
   const ref = useReveal();
@@ -84,19 +86,19 @@ const DISH_PREVIEWS = [
     name: 'Tagliatelle al Ragu',
     price: '$24',
     desc: 'Hand-rolled pasta, six-hour beef ragu, a whisper of nutmeg.',
-    image: imageKitchen,
+    image: TagliatellealRagu,
   },
   {
     name: 'Burrata Caprese',
     price: '$16',
     desc: 'Creamy burrata, heirloom tomatoes, torn basil, Sicilian oil.',
-    image: imageHero,
+    image: BurrataCaprese,
   },
   {
     name: 'Tiramisu della Casa',
     price: '$11',
     desc: 'Mascarpone, espresso-soaked savoiardi, a dusting of cocoa.',
-    image: imageKitchen,
+    image: TiramisudellaCasa,
   },
 ];
 
