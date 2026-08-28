@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import api from '../../api.js';
 import useReveal from '../../hooks/useReveal.js';
 import './home.css';
+import heroBg from '../../assets/.png';
 import imageHero from '../../assets/hero-kitchen.png';
 import TagliatellealRagu from '../../assets/8.png';
 import BurrataCaprese from '../../assets/6.png';
@@ -218,7 +219,7 @@ export default function Home() {
         <div className="wrap story-grid">
           <Reveal className="story-photo">
             <div className="story-photo-frame">
-              <img src={TagliatellealRagu} alt="Rustic Italian kitchen" />
+              <img src={heroBg} alt="Rustic Italian kitchen" />
             </div>
             <div className="story-stat-card">
               <div className="story-stat-number">12</div>
@@ -328,7 +329,7 @@ export default function Home() {
           </Reveal>
           <Reveal className="findus-photo" delay={100}>
             <div className="findus-photo-frame">
-              <img src={TiramisudellaCasa} alt="Tavola dining room" />
+              <img src={heroBg} alt="Tavola dining room" />
             </div>
           </Reveal>
         </div>
