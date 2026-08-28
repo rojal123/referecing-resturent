@@ -218,7 +218,7 @@ export default function Home() {
         <div className="wrap story-grid">
           <Reveal className="story-photo">
             <div className="story-photo-frame">
-              <img src={imageKitchen} alt="Rustic Italian kitchen" />
+              <img src={TagliatellealRagu} alt="Rustic Italian kitchen" />
             </div>
             <div className="story-stat-card">
               <div className="story-stat-number">12</div>
@@ -328,7 +328,7 @@ export default function Home() {
           </Reveal>
           <Reveal className="findus-photo" delay={100}>
             <div className="findus-photo-frame">
-              <img src={imageKitchen} alt="Tavola dining room" />
+              <img src={TiramisudellaCasa} alt="Tavola dining room" />
             </div>
           </Reveal>
         </div>
