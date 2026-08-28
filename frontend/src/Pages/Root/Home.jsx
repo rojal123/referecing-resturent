@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import api from '../../api.js';
 import useReveal from '../../hooks/useReveal.js';
 import './home.css';
-import heroBg from '../../assets/.png';
+import heroBg from '../../assets/1.png';
 import imageHero from '../../assets/hero-kitchen.png';
 import TagliatellealRagu from '../../assets/8.png';
 import BurrataCaprese from '../../assets/6.png';
