@@ -81,7 +81,7 @@ export default function Dashboard() {
             </div>
             <div className="dash-stat">
               <span className="dash-stat__label">Total Spent</span>
-              <span className="dash-stat__value dash-stat__value--money">${totalSpent.toFixed(2)}</span>
+              <span className="dash-stat__value dash-stat__value--money">Rs. {totalSpent.toFixed(2)}</span>
             </div>
           </div>
 
@@ -117,7 +117,7 @@ export default function Dashboard() {
                         <tr key={o.id}>
                           <td className="dash-table__wrap">{o.items_summary}</td>
                           <td>{o.pickup_date} · {o.pickup_time}</td>
-                          <td>${o.total_amount}</td>
+                          <td>Rs. {o.total_amount}</td>
                           <td>
                             <span className={`dash-status ${status.className}`}>
                               <i className="dash-status__dot" />{status.label}

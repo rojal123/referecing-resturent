@@ -11,6 +11,13 @@
   --line: #e6dccb;
   --white: #ffffff;
 
+  /* This page is intentionally light-themed, but the rest of the site
+     uses a dark theme (see index.css :root). Without this, browsers
+     with a dark OS/browser preference force-repaint every native form
+     control on the page (inputs, date/time pickers, etc.) to dark —
+     ignoring the explicit white backgrounds set below entirely. */
+  color-scheme: light;
+
   width: 100%;
   font-family: "Georgia", "Iowan Old Style", serif;
   color: var(--ink);
@@ -418,9 +425,19 @@
   outline-offset: 1px;
 }
 
+/* Consistent height so date/time match the text inputs above them. */
+.field input[type="date"],
+.field input[type="time"] {
+  min-height: 42px;
+}
+
 .field-row {
   display: flex;
   gap: 12px;
+}
+
+.field-row .field {
+  min-width: 0;
 }
 
 .order-summary__submit {
