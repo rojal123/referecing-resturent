@@ -24,7 +24,7 @@ export default function Dashboard() {
   const stats = [
     { label: 'Total Bookings', value: data.totalBookings },
     { label: 'Total Orders', value: data.totalOrders },
-    { label: 'Total Revenue', value: `$${Number(data.totalRevenue).toFixed(2)}` },
+    { label: 'Total Revenue', value: `Rs. ${Number(data.totalRevenue).toFixed(2)}` },
     { label: 'Upcoming Bookings', value: data.activeBookings },
     { label: 'Total Messages', value: data.totalMessages }
   ];

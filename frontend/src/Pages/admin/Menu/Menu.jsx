@@ -40,7 +40,7 @@ export default function AdminMenu() {
                 <tr key={m.id}>
                   <td>{m.name}</td>
                   <td>{m.category}</td>
-                  <td>${Number(m.price).toFixed(2)}</td>
+                  <td>Rs. {Number(m.price).toFixed(2)}</td>
                   <td>{m.is_available ? 'Yes' : 'No'}</td>
                   <td style={{ display: 'flex', gap: 8 }}>
                     <Link className="admin-btn-sm" to={`/admin/menu/${m.id}/edit`}>

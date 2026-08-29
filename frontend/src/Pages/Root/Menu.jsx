@@ -326,7 +326,7 @@ export default function Menu() {
                     <div className="menu-card__body">
                       <div className="menu-card__title-row">
                         <h3>{item.name}</h3>
-                        <span className="menu-card__price">${Number(item.price).toFixed(2)}</span>
+                        <span className="menu-card__price">Rs. {Number(item.price).toFixed(2)}</span>
                       </div>
                       {item.description && <p className="menu-card__desc">{item.description}</p>}
                       <Link to="/order" className="menu-card__cta">

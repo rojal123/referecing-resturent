@@ -181,49 +181,74 @@
 }
 
 /* -------------------------------- Stats ---------------------------------
-   Used on the Dashboard. These classes only existed in the unused
-   Pages/admin/admin.css (dark theme) — never in this stylesheet, so the
-   stat cards, dashboard grid, "most requested dish" tag/image, and booking
-   status text were all rendering completely unstyled. */
+   Used on the Dashboard. */
 
 .admin-stat-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 16px;
-  margin-bottom: 24px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 28px;
 }
 
 .admin-stat-card {
   background: #fff;
-  border: 1px solid #eee;
-  border-left: 3px solid #14141a;
-  border-radius: 10px;
-  padding: 18px 20px;
+  border: 1px solid #ececec;
+  border-top: 3px solid #14141a;
+  border-radius: 12px;
+  padding: 20px 22px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  gap: 10px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
 }
 
 .admin-stat-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.09);
 }
 
+/* A different accent color per card keeps the row from feeling monotone
+   while staying subtle enough not to compete with the numbers. */
+.admin-stat-card:nth-child(1) { border-top-color: #c9a227; }
+.admin-stat-card:nth-child(2) { border-top-color: #3f6ea5; }
+.admin-stat-card:nth-child(3) { border-top-color: #1e8e4a; }
+.admin-stat-card:nth-child(4) { border-top-color: #a5473f; }
+.admin-stat-card:nth-child(5) { border-top-color: #6a4fa3; }
+
 .admin-stat-label {
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: #888;
+  color: #8a8a8a;
 }
 
 .admin-stat-value {
-  font-size: 1.7rem;
+  font-size: 1.85rem;
   font-weight: 700;
   color: #14141a;
   line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+@media (max-width: 1100px) {
+  .admin-stat-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .admin-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .admin-stat-card {
+    padding: 16px 18px;
+  }
+  .admin-stat-value {
+    font-size: 1.5rem;
+  }
 }
 
 .admin-dashboard-grid {

@@ -71,7 +71,7 @@ export default function MyOrders() {
               <div className="acct-card" key={o.id}>
                 <div className="acct-card__top">
                   <div>
-                    <h3>${o.total_amount} · {o.items_summary}</h3>
+                    <h3>Rs. {o.total_amount} · {o.items_summary}</h3>
                     <p className="acct-card__meta">
                       Pickup {o.pickup_date} · {o.pickup_time}
                     </p>

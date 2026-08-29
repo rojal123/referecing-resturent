@@ -85,19 +85,19 @@ const FEATURES = [
 const DISH_PREVIEWS = [
   {
     name: 'Tagliatelle al Ragu',
-    price: '$24',
+    price: 'Rs. 24',
     desc: 'Hand-rolled pasta, six-hour beef ragu, a whisper of nutmeg.',
     image: TagliatellealRagu,
   },
   {
     name: 'Burrata Caprese',
-    price: '$16',
+    price: 'Rs. 16',
     desc: 'Creamy burrata, heirloom tomatoes, torn basil, Sicilian oil.',
     image: BurrataCaprese,
   },
   {
     name: 'Tiramisu della Casa',
-    price: '$11',
+    price: 'Rs. 11',
     desc: 'Mascarpone, espresso-soaked savoiardi, a dusting of cocoa.',
     image: TiramisudellaCasa,
   },

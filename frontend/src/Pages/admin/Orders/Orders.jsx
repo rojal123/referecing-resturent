@@ -42,7 +42,7 @@ export default function Orders() {
                   <td>{o.full_name}<br />{o.email}</td>
                   <td className="wrap-cell">{o.items_summary || '—'}</td>
                   <td>{formatDate(o.pickup_date)} {o.pickup_time}</td>
-                  <td>${Number(o.total_amount).toFixed(2)}</td>
+                  <td>Rs. {Number(o.total_amount).toFixed(2)}</td>
                   <td>
                     <select
                       className="admin-status-select"

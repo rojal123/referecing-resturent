@@ -272,7 +272,7 @@ export default function OrderPage() {
                   <div className="menu-item__info">
                     <div className="menu-item__title-row">
                       <h4>{item.name}</h4>
-                      <span className="menu-item__price">${Number(item.price).toFixed(2)}</span>
+                      <span className="menu-item__price">Rs. {Number(item.price).toFixed(2)}</span>
                     </div>
                     <p>{item.description}</p>
                   </div>
@@ -305,7 +305,7 @@ export default function OrderPage() {
                   <div className="cart-line__info">
                     <span className="cart-line__name">{item.name}</span>
                     <span className="cart-line__price">
-                      ${(Number(item.price) * quantity).toFixed(2)}
+                      Rs. {(Number(item.price) * quantity).toFixed(2)}
                     </span>
                   </div>
                   <div className="cart-line__controls">
@@ -321,7 +321,7 @@ export default function OrderPage() {
           {cartEntries.length > 0 && (
             <div className="order-summary__total">
               <span>Total</span>
-              <span>${totalPrice.toFixed(2)}</span>
+              <span>Rs. {totalPrice.toFixed(2)}</span>
             </div>
           )}
 

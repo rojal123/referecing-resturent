@@ -33,7 +33,7 @@ export default function Report() {
                 <tr key={m.month}>
                   <td>{m.month}</td>
                   <td>{m.orderCount}</td>
-                  <td>${Number(m.totalRevenue).toFixed(2)}</td>
+                  <td>Rs. {Number(m.totalRevenue).toFixed(2)}</td>
                 </tr>
               ))}
             </tbody>
