@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../../api.js";
 import { useAuth } from "../../Context/AuthContext.jsx";
+import ReviewModal from "./ReviewModal.jsx";
 import "./order.css";
 import order from "../../assets/4.png";
 
@@ -78,6 +79,7 @@ export default function OrderPage() {
   });
   const [submitStatus, setSubmitStatus] = useState("idle"); // idle | submitting | success | error
   const [submitMessage, setSubmitMessage] = useState("");
+  const [showReviewModal, setShowReviewModal] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -186,6 +188,7 @@ export default function OrderPage() {
       setSubmitStatus("success");
       setSubmitMessage("Order placed! We'll see you at pickup.");
       setCart({});
+      setShowReviewModal(true);
     } catch (err) {
       const status = err?.response?.status;
       setSubmitStatus("error");
@@ -405,6 +408,14 @@ export default function OrderPage() {
           </p>
         </aside>
       </main>
+
+      {showReviewModal && user && (
+        <ReviewModal
+          fullName={user.fullName}
+          userId={user.id}
+          onClose={() => setShowReviewModal(false)}
+        />
+      )}
     </div>
   );
 }
