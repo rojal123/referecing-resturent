@@ -1,8 +1,9 @@
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../Context/AuthContext.jsx';
 
-// Wrap the admin route with this. Sends non-logged-in visitors to /login,
-// and logged-in-but-not-admin visitors back to the homepage.
+// Wrap the admin route with this. Sends non-logged-in visitors to
+// /admin/login (a separate URL/page from the customer login), and
+// logged-in-but-not-admin visitors back to the homepage.
 export default function AdminRoute({ children }) {
   const { user, checkingSession } = useAuth();
 
@@ -11,7 +12,7 @@ export default function AdminRoute({ children }) {
   }
 
   if (!user) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/admin/login" replace />;
   }
 
   if (!user.isAdmin) {

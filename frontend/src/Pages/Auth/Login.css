@@ -48,22 +48,6 @@
   box-shadow: 0 30px 60px rgba(0,0,0,0.35);
 }
 
-.tavola-input {
-  width: 100%;
-  box-sizing: border-box;
-  margin-top: 8px;
-  padding: 11px 14px;
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: 16px;
-  color: #3a2a2d;
-  background: #fff;
-  border: 1px solid var(--tv-slate);
-  border-radius: 6px;
-  outline: none;
-}
-.tavola-input::placeholder { color: #a3aeb9; }
-.tavola-input:focus { border-color: var(--tv-maroon); }
-
 .tavola-input-wrap { position: relative; }
 .tavola-input-wrap .tavola-input { padding-right: 42px; }
 

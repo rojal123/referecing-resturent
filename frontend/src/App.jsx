@@ -17,6 +17,7 @@ import UserDashboard from './Pages/User/Dashboard/Dashboard.jsx';
 import NotFound from './Pages/Errorpage/404.jsx';
 
 import Login from './Pages/Auth/Login.jsx';
+import AdminLogin from './Pages/Auth/AdminLogin.jsx';
 import Signup from './Pages/Auth/Signup.jsx';
 import ResetPassword from './Pages/Auth/ResetPassword.jsx';
 import ForgotPassword from './Pages/Auth/Forgetpassword.jsx';
@@ -40,6 +41,7 @@ export default function App() {
       {/* Login/Signup sit outside PublicLayout on purpose -- no Navbar/Footer
           on these two, same reasoning as the admin area below. */}
      <Route path="/login" element={<Login />} />
+     <Route path="/admin/login" element={<AdminLogin />} />
      <Route path="/signup" element={<Signup />} />
      <Route path="/forgot-password" element={<ForgotPassword />} />
      <Route path="/reset-password" element={<ResetPassword />} />

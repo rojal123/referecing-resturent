@@ -121,6 +121,17 @@ p { color: var(--color-cream-dim); }
   transform: none !important;
 }
 
+.btn,
+.btn:focus,
+.btn:focus-visible,
+input[type="file"],
+input[type="file"]:focus,
+select,
+select:focus {
+  outline: none;
+  box-shadow: none;
+}
+
 /* form elements shared across booking / order / auth / contact / reviews */
 .field {
   display: flex;
