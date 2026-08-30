@@ -77,6 +77,16 @@ function serializeCustomer(doc) {
   };
 }
 
+function serializeNotification(doc) {
+  return {
+    id: doc._id.toString(),
+    title: doc.title,
+    message: doc.message,
+    is_read: doc.isRead,
+    created_at: doc.createdAt
+  };
+}
+
 module.exports = {
   dateOnly,
   serializeMenuItem,
@@ -84,5 +94,6 @@ module.exports = {
   serializeOrder,
   serializeReview,
   serializeContactMessage,
-  serializeCustomer
+  serializeCustomer,
+  serializeNotification
 };

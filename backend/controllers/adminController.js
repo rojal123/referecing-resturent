@@ -116,6 +116,13 @@ async function getReport(req, res) {
   catch (err) { handleError(res, err, 'Could not load the report'); }
 }
 
+async function sendNotification(req, res) {
+  try {
+    const { recipientId, title, message } = req.body;
+    res.json(await adminService.sendNotification({ recipientId, title, message }));
+  } catch (err) { handleError(res, err, 'Could not send notification'); }
+}
+
 module.exports = {
   getDashboard, getBookings, updateBooking, deleteBooking,
   getOrders, updateOrder, deleteOrder,
@@ -123,5 +130,6 @@ module.exports = {
   getCustomers, deleteCustomer,
   getReviews, deleteReview,
   getMessages, deleteMessage,
-  getReport
+  getReport,
+  sendNotification
 };

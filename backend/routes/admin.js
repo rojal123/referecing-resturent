@@ -33,4 +33,6 @@ router.delete('/messages/:id', adminController.deleteMessage);
 
 router.get('/report', adminController.getReport);
 
+router.post('/notifications', adminController.sendNotification);
+
 module.exports = router;

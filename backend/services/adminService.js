@@ -4,6 +4,7 @@ const MenuItem = require('../models/MenuItem');
 const User = require('../models/User');
 const Review = require('../models/Review');
 const ContactMessage = require('../models/ContactMessage');
+const Notification = require('../models/Notification');
 
 const {
   serializeMenuItem,
@@ -214,6 +215,41 @@ async function getReport() {
   };
 }
 
+async function sendNotification({ recipientId, title, message }) {
+  if (!title || !message) {
+    const err = new Error('Title and message are required');
+    err.status = 400;
+    throw err;
+  }
+
+  // "all" broadcasts to every registered user. We store one row per
+  // recipient (rather than a single "broadcast" row) so each user's
+  // read/unread state can be tracked independently, and so the
+  // existing per-user query pattern (Notification.find({ recipient }))
+  // used everywhere else in this codebase keeps working unchanged.
+  if (recipientId === 'all') {
+    const users = await User.find({}, '_id');
+    if (users.length === 0) {
+      const err = new Error('There are no registered users to notify');
+      err.status = 404;
+      throw err;
+    }
+    const docs = users.map((u) => ({ recipient: u._id, title, message }));
+    await Notification.insertMany(docs);
+    return { message: `Notification sent to ${docs.length} user(s)` };
+  }
+
+  const user = await User.findById(recipientId);
+  if (!user) {
+    const err = new Error('User not found');
+    err.status = 404;
+    throw err;
+  }
+
+  await Notification.create({ recipient: recipientId, title, message });
+  return { message: `Notification sent to ${user.fullName}` };
+}
+
 module.exports = {
   getDashboard, getBookings, updateBookingStatus, deleteBooking,
   getOrders, updateOrderStatus, deleteOrder,
@@ -221,5 +257,6 @@ module.exports = {
   getCustomers, deleteCustomer,
   getReviews, deleteReview,
   getMessages, deleteMessage,
-  getReport
+  getReport,
+  sendNotification
 };

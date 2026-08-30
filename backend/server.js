@@ -13,6 +13,7 @@ const orderRoutes = require('./routes/orders');
 const reviewRoutes = require('./routes/reviews');
 const contactRoutes = require('./routes/contact');
 const adminRoutes = require('./routes/admin');
+const notificationRoutes = require('./routes/notifications');
 
 // Fail loudly at boot if required env vars are missing, instead of
 // silently 500-ing on the first request that needs them.
@@ -44,6 +45,7 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/notifications', notificationRoutes);
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'Tavola API is running (MongoDB)' });
