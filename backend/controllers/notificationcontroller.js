@@ -1,4 +1,4 @@
-const notificationService = require('../services/notificationService');
+const notificationService = require('../services/Notificationservice');
 
 function handleError(res, err, fallbackMessage) {
   if (err.status) return res.status(err.status).json({ message: err.message });
