@@ -182,8 +182,6 @@
 }
 
 .tavola-checkbox {
-  appearance: none;
-  -webkit-appearance: none;
   width: 16px;
   height: 16px;
   border: 1px solid var(--tv-slate);
