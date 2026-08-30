@@ -6,6 +6,16 @@ import ReviewModal from "./ReviewModal.jsx";
 import "./order.css";
 import order from "../../assets/4.png";
 
+// yyyy-mm-dd for today, used as the date input's `min` so past dates
+// can't be picked (and to catch a manipulated/stale value on submit).
+function todayISODate() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
 const FEATURES = [
   {
     icon: "clock",
@@ -167,6 +177,12 @@ export default function OrderPage() {
 
   const handleSubmit = async () => {
     if (!canSubmit) return;
+
+    if (form.pickupDate < todayISODate()) {
+      setSubmitStatus("error");
+      setSubmitMessage("Pickup date can't be in the past. Please pick today or a later date.");
+      return;
+    }
 
     setSubmitStatus("submitting");
     setSubmitMessage("");
@@ -384,6 +400,7 @@ export default function OrderPage() {
                 type="date"
                 value={form.pickupDate}
                 onChange={handleFormChange("pickupDate")}
+                min={todayISODate()}
               />
             </label>
             <label className="field">

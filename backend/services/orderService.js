@@ -11,6 +11,18 @@ async function createOrder(userId, data) {
     throw err;
   }
 
+  // pickupDate arrives as "YYYY-MM-DD" from a native <input type="date">.
+  // Reject anything before today so a stale form, a manually edited
+  // request, or a direct API call can't book a pickup in the past.
+  const requestedDate = new Date(`${pickupDate}T00:00:00`);
+  const startOfToday = new Date();
+  startOfToday.setHours(0, 0, 0, 0);
+  if (Number.isNaN(requestedDate.getTime()) || requestedDate < startOfToday) {
+    const err = new Error("Pickup date can't be in the past");
+    err.status = 400;
+    throw err;
+  }
+
   const menuItemIds = items.map((i) => i.menuItemId);
   const menuItems = await MenuItem.find({ _id: { $in: menuItemIds } });
   const menuItemById = new Map(menuItems.map((m) => [m._id.toString(), m]));
