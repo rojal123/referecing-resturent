@@ -1,6 +1,6 @@
 import { useState } from "react";
 import api from "../../api.js";
-import "./reviewModal.css";
+import "./review.css";
 
 const STAR_LABELS = ["Poor", "Fair", "Good", "Great", "Excellent"];
 
