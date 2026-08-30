@@ -1,5 +1,6 @@
 import { NavLink, Outlet, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../Context/AuthContext.jsx';
+import NotificationBell from './NotificationBell.jsx';
 import './userLayout.css';
 
 const NAV_ITEMS = [
@@ -42,6 +43,7 @@ export default function UserLayout() {
         <header className="user-topbar">
           <div />
           <div className="user-topbar-right">
+            <NotificationBell />
             <Link to="/" className="user-btn-ghost">Return to Home</Link>
             <div className="user-topbar-account">
               <span className="user-avatar">{initial}</span>

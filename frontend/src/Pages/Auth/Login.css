@@ -177,7 +177,6 @@
   align-items: flex-start;
   gap: 10px;
   cursor: pointer;
-  user-select: none;
   flex: 1;
   min-width: 0;
 }
