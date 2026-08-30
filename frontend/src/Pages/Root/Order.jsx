@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../../api.js";
 import { useAuth } from "../../Context/AuthContext.jsx";
-import ReviewModal from "./ReviewModal.jsx";
+import ReviewModal from "./Reviewmodal.jsx";
 import "./order.css";
 import order from "../../assets/4.png";
 
